@@ -3,10 +3,10 @@ echo "Starting Product Analytics Build"
 SRC="${BUILD_DIR%Build/*}/SourcePackages/checkouts/ProductAnalytics"
 cd $SRC
 #swift build -c debug -sdk "macOS" -arch "x86_64"
- /usr/bin/xcrun --sdk macosx swift build -v \
+/usr/bin/xcrun --sdk macosx swift build -v \
     -Xswiftc "-sdk" \
     -Xswiftc "`xcrun --sdk macosx --show-sdk-path`"
 echo "Build Complete"
 #echo "Try to run: .build/x86_64-apple-macosx/${CONFIGURATION:lower}/ProductAnalytics"
 #.build/x86_64-apple-macosx/debug/ProductAnalytics
-swift run ProductAnalytics
+/usr/bin/xcrun --sdk macosx swift run ProductAnalytics
