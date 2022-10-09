@@ -1,0 +1,19 @@
+{
+  "productAnalysis": {
+    "General": {
+      "Launch": {
+        "children": [{
+            "name": "launch",
+            "value": "launch"
+          }
+        ]
+      },
+      "Quit": {
+        "children": [{
+          "name": "terminate",
+          "value": "terminate"
+        }]
+      }
+    }
+  }
+}

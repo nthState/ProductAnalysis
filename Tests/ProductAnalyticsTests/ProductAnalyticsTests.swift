@@ -8,7 +8,7 @@ final class ProductAnalyticsTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         //XCTAssertEqual(Foo().text, "Hello, World!")
-      let x = Test()
-      x.doIt()
+//      let x = Test()
+//      x.doIt()
     }
 }

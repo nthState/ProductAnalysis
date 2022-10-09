@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ Configuration object
+ */
 public struct ProductAnalyticsConfiguration: Decodable {
   public let warningsAsErrors: Bool
   public let accessToken: String

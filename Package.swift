@@ -24,7 +24,8 @@ let package = Package(
               "ProductAnalyticsCore",
               .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]),
-        .target(name: "ProductAnalyticsCore", dependencies: []),
+        .target(name: "ProductAnalyticsCore", dependencies: ["Csourcekitd"]),
+        .target(name: "Csourcekitd", dependencies: []),
         .testTarget(
             name: "ProductAnalyticsTests",
             dependencies: ["ProductAnalytics"]),

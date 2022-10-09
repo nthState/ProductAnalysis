@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class Generate {
+  
+  func generate(events: [Any], with configuration: ProductAnalyticsConfiguration) {
+    
+    
+    
+  }
+  
+}

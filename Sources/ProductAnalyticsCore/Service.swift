@@ -11,16 +11,12 @@ enum ProductAnalyticsError: Error {
   case invalidURL
 }
 
-public class Test {
+public class Service {
   
   public init() {
     
   }
-  
-  public func doIt() {
-    print("in foo")
-  }
-  
+
   public func fetch() async throws -> Analytics {
     
     guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {

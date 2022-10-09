@@ -27,6 +27,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Flag(help: "Enable Logging")
   var enableLogging: Bool = false
   
+  /**
+   To enable log output, run the following command in a terminal window to stream the output
+   
+   log stream --level debug --predicate 'subsystem == "com.productanalytics"'
+   */
   lazy var logger: Logger = Logger(subsystem: "com.productanalytics", category: "Console")
   
   public init() {
@@ -34,13 +39,8 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   }
   
   public mutating func run() async throws {
-    //print(Foo().text)
-    let x = Test()
-    x.doIt()
     
-    logger.debug("debug message")
-    logger.notice("notice message")
-    logger.trace("trace message")
+    let service = Service()
 
     let configuration: ProductAnalyticsConfiguration
     if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
@@ -55,10 +55,10 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
                                                     enableLogging: enableLogging)
     }
     
-    x.run(with: configuration)
+    service.run(with: configuration)
     
     do {
-      let foo = try await x.fetch()
+      let foo = try await service.fetch()
     } catch let error {
       logger.log("has error: \(error.localizedDescription, privacy: .public)")
     }
