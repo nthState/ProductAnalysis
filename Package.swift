@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Foo",
+    name: "ProductAnalytics",
     platforms: [
       .macOS(.v10_15)
     ],
