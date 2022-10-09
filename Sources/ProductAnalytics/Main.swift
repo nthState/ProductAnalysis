@@ -37,13 +37,9 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     if let value = ProcessInfo.processInfo.environment["PROJECT_DIR"] {
       print("PROJECT_DIR: \(value)")
+      
+      print("findConfiguration: \(String(describing: findConfiguration))")
     }
-    
-    if let value = ProcessInfo.processInfo.environment["SRCROOT"] {
-      print("SRCROOT: \(value)")
-    }
-    
-    print(ProcessInfo.processInfo.environment)
     
     do {
       let foo = try await x.fetch()
@@ -53,4 +49,20 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     }
     
   }
+  
+  private func findConfiguration() -> ProductAnalyticsConfiguration? {
+    let bundle = Bundle.main
+    
+    guard let analyticsConfigURL = bundle.url(forResource: "ProductAnalytics", withExtension: "plist"),
+          let data = try? Data(contentsOf: analyticsConfigURL) else {
+      return nil
+    }
+    
+    let decoder = PropertyListDecoder()
+    return try? decoder.decode(ProductAnalyticsConfiguration.self, from: data)
+  }
+}
+
+struct ProductAnalyticsConfiguration: Decodable {
+  let warningsAsErrors: Bool
 }
