@@ -59,13 +59,18 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
     
+    print("Looking for file: \(configurationURL)")
+    
     guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
       print("Can't find \(configurationURL)")
       return nil
     }
     
-    print("Looking for file: \(configurationURL)")
-
+    guard configurationURL.startAccessingSecurityScopedResource() else {
+      print("Can't startAccessingSecurityScopedResource")
+      return nil
+    }
+    
     let data: Data
     do {
       data = try Data(contentsOf: configurationURL)
