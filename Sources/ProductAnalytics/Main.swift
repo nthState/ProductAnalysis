@@ -67,15 +67,12 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     }
     
     guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
-      print("Can't read \(configurationURL)")
+      print("File not readable \(configurationURL)")
       return nil
     }
     
-    let data: Data
-    do {
-      data = try Data(contentsOf: configurationURL)
-    } catch let error {
-      print(error.localizedDescription)
+    guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
+      print("Can't get data of \(configurationURL)")
       return nil
     }
     
