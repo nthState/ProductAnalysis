@@ -31,6 +31,12 @@ public class Test {
     let result = try JSONDecoder().decode(Analytics.self, from: data)
     return result
   }
+  
+  public func run(with configuration: ProductAnalyticsConfiguration) {
+    print("Run with configuration")
+    print(configuration)
+  }
+  
 }
 
 public class Analytics: Codable {

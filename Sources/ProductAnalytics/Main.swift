@@ -1,6 +1,7 @@
 import ProductAnalyticsCore
 import ArgumentParser
 import Foundation
+import OSLog
 
 @main
 public struct Main: ParsableCommand, AsyncParsableCommand{
@@ -23,6 +24,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Option(help: "Optional Project Name")
   var projectName: String?
   
+  @Flag(help: "Enable Logging")
+  var enableLogging: Bool = true
+  
+  lazy var logger: Logger = Logger(subsystem: "com.productanalytics", category: "Console")
+  
   public init() {
     
   }
@@ -31,56 +37,62 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     //print(Foo().text)
     let x = Test()
     x.doIt()
-    
-    print("warningsAsErrors: \(warningsAsErrors)")
-    print("outputFolder: \(String(describing: outputFolder))")
-    
-    if let value = ProcessInfo.processInfo.environment["PROJECT_DIR"] {
-      print("PROJECT_DIR: \(value)")
+
+    let configuration: ProductAnalyticsConfiguration
+    if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
+      configuration = configFromFile
+    } else {
       
-      print("findConfiguration: \(String(describing: findConfiguration(projectDir: URL(string: value))))")
+      logger.log("No config found, reading options from command line")
+      //logger.log("warningsAsErrors: \(warningsAsErrors, privacy: .public)")
+      //logger.log("outputFolder: \(String(describing: outputFolder), privacy: .public)")
+      
+      configuration = ProductAnalyticsConfiguration(warningsAsErrors: warningsAsErrors,
+                                                    accessToken: accessToken ?? "none_set",
+                                                    enableLogging: enableLogging)
     }
+    
+    x.run(with: configuration)
     
     do {
       let foo = try await x.fetch()
     } catch let error {
-      print("has error")
-      print(error.localizedDescription)
+      logger.log("has error: \(error.localizedDescription, privacy: .public)")
     }
     
   }
   
-  private func findConfiguration(projectDir: URL?) -> ProductAnalyticsConfiguration? {
+  internal func urlToProjectDir() -> URL? {
+    URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
+  }
+  
+  private mutating func findConfiguration(projectDir: URL?) -> ProductAnalyticsConfiguration? {
     
     guard let projectDir else {
-      print("projectDir is nil")
+      logger.log("projectDir is nil")
       return nil
     }
     
     let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
     
-    print("Looking for file: \(configurationURL)")
+    logger.log("Looking for file: \(configurationURL)")
     
     guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
-      print("Can't find \(configurationURL)")
+      logger.log("Can't find \(configurationURL)")
       return nil
     }
     
     guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
-      print("File not readable \(configurationURL)")
+      logger.log("File not readable \(configurationURL)")
       return nil
     }
     
     guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
-      print("Can't get data of \(configurationURL)")
+      logger.log("Can't get data of \(configurationURL)")
       return nil
     }
     
     let decoder = PropertyListDecoder()
     return try? decoder.decode(ProductAnalyticsConfiguration.self, from: data)
   }
-}
-
-struct ProductAnalyticsConfiguration: Decodable {
-  let warningsAsErrors: Bool
 }
