@@ -37,10 +37,14 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     //print(Foo().text)
     let x = Test()
     x.doIt()
+    
+    logger.debug("debug message")
+    logger.notice("notice message")
+    logger.trace("trace message")
 
     let configuration: ProductAnalyticsConfiguration
     if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
-      logger.log("Found ProductAnalytics.plist, using that for configuration")
+      logger.info("Found ProductAnalytics.plist, using that for configuration")
       configuration = configFromFile
     } else {
       
