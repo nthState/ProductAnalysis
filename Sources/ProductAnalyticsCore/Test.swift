@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum ProductAnalyticsError: Error {
+  case invalidURL
+}
+
 public class Test {
   
   public init() {
@@ -16,4 +20,19 @@ public class Test {
   public func doIt() {
     print("in foo")
   }
+  
+  public func fetch() async throws -> Analytics {
+    
+    guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
+      throw ProductAnalyticsError.invalidURL
+    }
+    
+    let (data, _) = try await URLSession.shared.data(from: url)
+    let result = try JSONDecoder().decode(Analytics.self, from: data)
+    return result
+  }
+}
+
+public class Analytics: Codable {
+  let a: String
 }
