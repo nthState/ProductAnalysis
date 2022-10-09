@@ -40,12 +40,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
 
     let configuration: ProductAnalyticsConfiguration
     if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
+      logger.log("Found ProductAnalytics.plist, using that for configuration")
       configuration = configFromFile
     } else {
       
       logger.log("No config found, reading options from command line")
-      //logger.log("warningsAsErrors: \(warningsAsErrors, privacy: .public)")
-      //logger.log("outputFolder: \(String(describing: outputFolder), privacy: .public)")
       
       configuration = ProductAnalyticsConfiguration(warningsAsErrors: warningsAsErrors,
                                                     accessToken: accessToken ?? "none_set",

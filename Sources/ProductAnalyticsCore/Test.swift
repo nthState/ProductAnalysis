@@ -33,7 +33,7 @@ public class Test {
   }
   
   public func run(with configuration: ProductAnalyticsConfiguration) {
-    print("Run with configuration")
+    print("Running with configuration")
     print(configuration)
   }
   
