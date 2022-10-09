@@ -66,8 +66,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     print("Looking for file: \(configurationURL)")
 
-    guard let data = try? Data(contentsOf: configurationURL) else {
-      print("Data not read")
+    let data: Data
+    do {
+      data = try Data(contentsOf: configurationURL)
+    } catch let error {
+      print(error.localizedDescription)
       return nil
     }
     
