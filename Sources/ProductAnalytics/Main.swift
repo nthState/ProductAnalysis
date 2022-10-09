@@ -25,7 +25,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   var projectName: String?
   
   @Flag(help: "Enable Logging")
-  var enableLogging: Bool = true
+  var enableLogging: Bool = false
   
   lazy var logger: Logger = Logger(subsystem: "com.productanalytics", category: "Console")
   
