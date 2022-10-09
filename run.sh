@@ -1,5 +1,5 @@
-#!/bin/zsh
-
+#!/bin/sh
+echo "Starting Product Analytics Build"
 SRC="${BUILD_DIR%Build/*}/SourcePackages/checkouts/ProductAnalytics"
 cd $SRC
 swift build
