@@ -1,5 +1,6 @@
 import ProductAnalyticsCore
 import ArgumentParser
+import Foundation
 
 @main
 public struct Main: ParsableCommand, AsyncParsableCommand{
@@ -33,6 +34,16 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     print("warningsAsErrors: \(warningsAsErrors)")
     print("outputFolder: \(String(describing: outputFolder))")
+    
+    if let value = ProcessInfo.processInfo.environment["PROJECT_DIR"] {
+      print("PROJECT_DIR: \(value)")
+    }
+    
+    if let value = ProcessInfo.processInfo.environment["SRCROOT"] {
+      print("SRCROOT: \(value)")
+    }
+    
+    print(ProcessInfo.processInfo.environment)
     
     do {
       let foo = try await x.fetch()
