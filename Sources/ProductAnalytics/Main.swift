@@ -63,8 +63,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       print("Can't find \(configurationURL)")
       return nil
     }
+    
+    print("Looking for file: \(configurationURL)")
 
     guard let data = try? Data(contentsOf: configurationURL) else {
+      print("Data not read")
       return nil
     }
     
