@@ -38,7 +38,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     if let value = ProcessInfo.processInfo.environment["PROJECT_DIR"] {
       print("PROJECT_DIR: \(value)")
       
-      print("findConfiguration: \(String(describing: findConfiguration()))")
+      print("findConfiguration: \(String(describing: findConfiguration(projectDir: URL(fileURLWithPath: value))))")
     }
     
     do {
@@ -50,11 +50,16 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
   }
   
-  private func findConfiguration() -> ProductAnalyticsConfiguration? {
-    let bundle = Bundle.main
+  private func findConfiguration(projectDir: URL) -> ProductAnalyticsConfiguration? {
     
-    guard let analyticsConfigURL = bundle.url(forResource: "ProductAnalytics", withExtension: "plist"),
-          let data = try? Data(contentsOf: analyticsConfigURL) else {
+    let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
+    
+    guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
+      print("Can't find \(configurationURL)")
+      return nil
+    }
+
+    guard let data = try? Data(contentsOf: configurationURL) else {
       return nil
     }
     
