@@ -9,6 +9,11 @@ let package = Package(
       .macOS(.v10_15),
       .iOS(.v15)
     ],
+    products: [
+      .library(
+            name: "ProductAnalyticsCore",
+            targets: ["ProductAnalyticsCore"]),
+    ],
     dependencies: [
       .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0")
     ],
@@ -19,7 +24,7 @@ let package = Package(
               "ProductAnalyticsCore",
               .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]),
-        .target(name: "ProductAnalyticsCore"),
+        .target(name: "ProductAnalyticsCore", dependencies: []),
         .testTarget(
             name: "ProductAnalyticsTests",
             dependencies: ["ProductAnalytics"]),
