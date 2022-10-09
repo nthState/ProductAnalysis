@@ -66,8 +66,8 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       return nil
     }
     
-    guard configurationURL.startAccessingSecurityScopedResource() else {
-      print("Can't startAccessingSecurityScopedResource")
+    guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
+      print("Can't read \(configurationURL)")
       return nil
     }
     
