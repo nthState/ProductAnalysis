@@ -38,7 +38,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     if let value = ProcessInfo.processInfo.environment["PROJECT_DIR"] {
       print("PROJECT_DIR: \(value)")
       
-      print("findConfiguration: \(String(describing: findConfiguration))")
+      print("findConfiguration: \(String(describing: findConfiguration()))")
     }
     
     do {
