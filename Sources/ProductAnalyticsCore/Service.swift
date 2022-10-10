@@ -25,6 +25,9 @@ public class Service {
   public func run(with configuration: Configuration) async throws {
     logger.log("Running with configuration: \(configuration, privacy: .public)")
     
+    let calculate = Calculate()
+    await calculate.run(with: configuration)
+    
     if configuration.generateSourceCode {
       let generate = Generate()
       await generate.run(with: configuration)
