@@ -24,15 +24,22 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Option(help: "Optional Project Name")
   var projectName: String?
   
-  @Flag(help: "Enable Logging")
-  var enableLogging: Bool = false
+  @Flag(help: "Enable Analysis")
+  var enableAnalysis: Bool = false
+  
+  @Flag(help: "Report Analysis Results")
+  var reportAnalysisResults: Bool = false
+  
+  @Flag(help: "Generate Source Code")
+  var generateSourceCode: Bool = false
+  
   
   /**
    To enable log output, run the following command in a terminal window to stream the output
    
    log stream --level debug --predicate 'subsystem == "com.productanalytics"'
    */
-  lazy var logger: Logger = Logger(subsystem: "com.productanalytics", category: "Console")
+  lazy var logger: Logger = Logger(subsystem: subsystem, category: "Console")
   
   public init() {
     
@@ -41,61 +48,68 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   public mutating func run() async throws {
     
     let service = Service()
-
-    let configuration: ProductAnalyticsConfiguration
-    if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
-      logger.info("Found ProductAnalytics.plist, using that for configuration")
-      configuration = configFromFile
-    } else {
-      
-      logger.log("No config found, reading options from command line")
-      
-      configuration = ProductAnalyticsConfiguration(warningsAsErrors: warningsAsErrors,
-                                                    accessToken: accessToken ?? "none_set",
-                                                    enableLogging: enableLogging)
-    }
-    
-    service.run(with: configuration)
+    let configuration = getConfiguration()
     
     do {
-      let foo = try await service.fetch()
+      try await service.run(with: configuration)
     } catch let error {
       logger.log("has error: \(error.localizedDescription, privacy: .public)")
     }
     
   }
   
+  // MARK: - Build Configuration
+  
+  internal mutating func getConfiguration() -> Configuration {
+    let configuration: Configuration
+    if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
+      logger.info("Found ProductAnalytics.plist, using it for configuration")
+      configuration = configFromFile
+    } else {
+      
+      logger.log("No ProductAnalytics.plist found, reading options from command line, if any")
+      
+      configuration = Configuration(warningsAsErrors: warningsAsErrors,
+                                    accessToken: accessToken ?? "none_set",
+                                    enableAnalysis: enableAnalysis,
+                                    reportAnalysisResults: reportAnalysisResults,
+                                    generateSourceCode: generateSourceCode,
+                                    outputFolder: outputFolder)
+    }
+    return configuration
+  }
+  
   internal func urlToProjectDir() -> URL? {
     URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
   }
   
-  private mutating func findConfiguration(projectDir: URL?) -> ProductAnalyticsConfiguration? {
+  internal mutating func findConfiguration(projectDir: URL?) -> Configuration? {
     
     guard let projectDir else {
-      logger.log("projectDir is nil")
+      logger.log("Xcode enrionment variable $PROJECT_DIR is nil")
       return nil
     }
     
     let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
     
-    logger.log("Looking for file: \(configurationURL)")
+    logger.log("Looking for file at url: \(configurationURL)")
     
     guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
-      logger.log("Can't find \(configurationURL)")
+      logger.log("Can't find url: \(configurationURL)")
       return nil
     }
     
     guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
-      logger.log("File not readable \(configurationURL)")
+      logger.log("File not readable: \(configurationURL)")
       return nil
     }
     
     guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
-      logger.log("Can't get data of \(configurationURL)")
+      logger.log("Can't get data of: \(configurationURL)")
       return nil
     }
     
     let decoder = PropertyListDecoder()
-    return try? decoder.decode(ProductAnalyticsConfiguration.self, from: data)
+    return try? decoder.decode(Configuration.self, from: data)
   }
 }

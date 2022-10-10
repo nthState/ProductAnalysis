@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import OSLog
 
 class Analyse {
+  
+  let logger = Logger(subsystem: subsystem, category: "Analyse")
   
   let sourceKit = SourceKit()
   
@@ -21,6 +24,13 @@ class Analyse {
     values = sourceKit.values!
   }
   
+  func run(with configuration: Configuration) async {
+    
+  }
+  
+}
+
+extension Analyse {
   func findFeatures(inFile file: String) -> [String] {
     let req = SKRequestDictionary(sourcekitd: sourceKit)
     
@@ -48,20 +58,41 @@ class Analyse {
     
     return features
   }
-  
 }
 
 extension Analyse {
   
-  func run(events: [String], with configuration: ProductAnalyticsConfiguration) {
+  func run(events: [String], with configuration: Configuration) {
+    
+    logger.log("In Analyse")
     
     log(message: "test", warningsAsErrors: configuration.warningsAsErrors)
-    
   }
   
+  /**
+   Note: This `print` statement is required so that it emits into the build stream
+   */
   func log(message: String, warningsAsErrors: Bool) {
     let prefix = warningsAsErrors ? "error" : "warning"
     print("\(prefix): \(message)")
   }
   
+}
+
+extension Analyse {
+  
+  @discardableResult
+  public func reportAnalysis() async throws -> Analytics {
+    
+    guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
+      throw ProductAnalyticsError.invalidURL
+    }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    
+    let (data, _) = try await URLSession.shared.data(for: request)
+    let result = try JSONDecoder().decode(Analytics.self, from: data)
+    return result
+  }
 }

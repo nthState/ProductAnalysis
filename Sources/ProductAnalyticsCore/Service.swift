@@ -6,33 +6,42 @@
 //
 
 import Foundation
+import OSLog
 
 enum ProductAnalyticsError: Error {
   case invalidURL
 }
 
+public let subsystem = "com.productanalytics"
+
 public class Service {
+  
+  private let logger = Logger(subsystem: subsystem, category: "Service")
   
   public init() {
     
   }
 
-  public func fetch() async throws -> Analytics {
+  public func run(with configuration: Configuration) async throws {
+    logger.log("Running with configuration: \(configuration, privacy: .public)")
     
-    guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
-      throw ProductAnalyticsError.invalidURL
+    if configuration.generateSourceCode {
+      let generate = Generate()
+      await generate.run(with: configuration)
     }
     
-    let (data, _) = try await URLSession.shared.data(from: url)
-    let result = try JSONDecoder().decode(Analytics.self, from: data)
-    return result
+    if configuration.enableAnalysis {
+      
+      let analyse = Analyse()
+      await analyse.run(with: configuration)
+      
+      if configuration.reportAnalysisResults {
+        try await analyse.reportAnalysis()
+      }
+    }
+    
   }
-  
-  public func run(with configuration: ProductAnalyticsConfiguration) {
-    print("Running with configuration")
-    print(configuration)
-  }
-  
+
 }
 
 public class Analytics: Codable {
