@@ -30,7 +30,7 @@ public class Service {
     
     if configuration.generateSourceCode {
       let generate = Generate()
-      await generate.run(analytics: analytics, with: configuration)
+      try await generate.run(analytics: analytics, with: configuration)
     }
     
     if configuration.enableAnalysis {
@@ -42,7 +42,7 @@ public class Service {
         
         let analysisReporter = AnalysisReporter()
         
-        try await analysisReporter.reportAnalysis(results: analysisResults)
+        try await analysisReporter.reportAnalysis(results: analysisResults, with: configuration)
       }
     }
     

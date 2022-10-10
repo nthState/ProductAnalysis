@@ -21,7 +21,7 @@ class AnalysisReporter {
 extension AnalysisReporter {
   
   @discardableResult
-  public func reportAnalysis(results: [String]) async throws -> String {
+  public func reportAnalysis(results: [String], with configuration: Configuration) async throws -> String {
     
     guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
       throw ProductAnalyticsError.invalidURL
@@ -35,7 +35,7 @@ extension AnalysisReporter {
       let (data, _) = try await URLSession.shared.data(for: request)
       result = try JSONDecoder().decode(String.self, from: data)
     } catch let error {
-      logger.log("AnalysisReporter error: \(error.localizedDescription, privacy: .public)")
+      logger.error("AnalysisReporter error: \(error.localizedDescription, privacy: .public)")
       throw error
     }
     return result

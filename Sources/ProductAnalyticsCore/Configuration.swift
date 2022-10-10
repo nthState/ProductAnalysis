@@ -16,10 +16,11 @@ public struct Configuration: Decodable {
   public let enableAnalysis: Bool
   public let reportAnalysisResults: Bool
   public let generateSourceCode: Bool
-  public let outputFolder: String?
+  public let outputFolder: URL?
   public let jsonURL: URL?
+  internal let projectDir: URL?
   
-  public init(warningsAsErrors: Bool, accessToken: String, enableAnalysis: Bool, reportAnalysisResults: Bool, generateSourceCode: Bool, outputFolder: String?, jsonURL: URL?) {
+  public init(warningsAsErrors: Bool, accessToken: String, enableAnalysis: Bool, reportAnalysisResults: Bool, generateSourceCode: Bool, outputFolder: URL?, jsonURL: URL?, projectDir: URL?) {
     self.warningsAsErrors = warningsAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis
@@ -27,9 +28,10 @@ public struct Configuration: Decodable {
     self.generateSourceCode = generateSourceCode
     self.outputFolder = outputFolder
     self.jsonURL = jsonURL
+    self.projectDir = projectDir
   }
   
-  // MARK: Decodable
+  // MARK: Decodable from PLIST
   
   enum CodingKeys: CodingKey {
     case warningsAsErrors
@@ -39,6 +41,7 @@ public struct Configuration: Decodable {
     case generateSourceCode
     case outputFolder
     case jsonURL
+    case projectDir
   }
   
   public init(from decoder: Decoder) throws {
@@ -48,8 +51,9 @@ public struct Configuration: Decodable {
     self.enableAnalysis = try container.decode(Bool.self, forKey: .enableAnalysis)
     self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
     self.generateSourceCode = try container.decode(Bool.self, forKey: .generateSourceCode)
-    self.outputFolder = try container.decodeIfPresent(String.self, forKey: .outputFolder)
+    self.outputFolder = try container.decodeIfPresent(URL.self, forKey: .outputFolder)
     self.jsonURL = try container.decodeIfPresent(URL.self, forKey: .jsonURL)
+    self.projectDir = URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
   }
 }
 
@@ -61,7 +65,7 @@ extension Configuration: CustomStringConvertible {
       enableAnalysis: \(enableAnalysis)
       reportAnalysisResults: \(reportAnalysisResults)
       generateSourceCode: \(generateSourceCode)
-      outputFolder: \(outputFolder ?? "none_set")
+      outputFolder: \(String(describing: outputFolder))
       jsonURL: \(String(describing: jsonURL))
       """
   }

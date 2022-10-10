@@ -9,18 +9,12 @@ final class ProductAnalyticsCoreTests: XCTestCase {
     let url = bundle.url(forResource: "ExampleProductKeys", withExtension: "json")!
     
     let calculate = Calculate()
-    let result = try await calculate.fetchAnalytics(url: url)
-    
-    
-  }
-  
-  func testDecode2() async throws {
-    
-    let url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalytics/main/Tests/ProductAnalyticsCoreTests/Resources/ExampleProductKeys.json")!
-    
-    let calculate = Calculate()
-    let result = try await calculate.fetchAnalytics(url: url)
-    
+    do {
+      let result = try await calculate.fetchAnalytics(url: url)
+    } catch let error {
+      XCTFail("Decode should have passed")
+    }
     
   }
+
 }

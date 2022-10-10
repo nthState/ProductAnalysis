@@ -67,13 +67,13 @@ extension Analyse {
     
     logger.log("In Analyse")
     
-    log(message: "test", warningsAsErrors: configuration.warningsAsErrors)
+    writeToBuildLog(message: "test", warningsAsErrors: configuration.warningsAsErrors)
   }
   
   /**
    Note: This `print` statement is required so that it emits into the build stream
    */
-  func log(message: String, warningsAsErrors: Bool) {
+  func writeToBuildLog(message: String, warningsAsErrors: Bool) {
     let prefix = warningsAsErrors ? "error" : "warning"
     print("\(prefix): \(message)")
   }

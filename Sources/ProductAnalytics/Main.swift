@@ -53,7 +53,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     do {
       try await service.run(with: configuration)
     } catch let error {
-      logger.log("has error: \(error.localizedDescription, privacy: .public)")
+      logger.error("has error: \(error.localizedDescription, privacy: .public)")
     }
     
     print("ProductAnalytics Finished")
@@ -75,8 +75,9 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
                                     enableAnalysis: enableAnalysis,
                                     reportAnalysisResults: reportAnalysisResults,
                                     generateSourceCode: generateSourceCode,
-                                    outputFolder: outputFolder,
-                                    jsonURL: URL(string: jsonFilePath ?? ""))
+                                    outputFolder: URL(string: outputFolder ?? ""),
+                                    jsonURL: URL(string: jsonFilePath ?? ""),
+                                    projectDir: urlToProjectDir())
     }
     return configuration
   }
@@ -115,7 +116,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     do {
       return try decoder.decode(Configuration.self, from: data)
     } catch let error {
-      logger.log("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
+      logger.error("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
       return nil
     }
   }
