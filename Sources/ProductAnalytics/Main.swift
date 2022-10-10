@@ -94,20 +94,20 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
     
-    logger.log("Looking for file at url: \(configurationURL)")
+    logger.log("Looking for file at url: \(configurationURL, privacy: .public)")
     
     guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
-      logger.log("Can't find url: \(configurationURL)")
+      logger.log("Can't find url: \(configurationURL, privacy: .public)")
       return nil
     }
     
     guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
-      logger.log("File not readable: \(configurationURL)")
+      logger.log("File not readable: \(configurationURL, privacy: .public)")
       return nil
     }
     
     guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
-      logger.log("Can't get data of: \(configurationURL)")
+      logger.log("Can't get data of: \(configurationURL, privacy: .public)")
       return nil
     }
     
