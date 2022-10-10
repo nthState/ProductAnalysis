@@ -32,10 +32,10 @@ extension Calculate {
   
   public func fetchAnalytics(url: URL) async throws -> Analytics {
 
-    let (data, _) = try await URLSession.shared.data(from: url)
     
     let result: Analytics
     do {
+      let (data, _) = try await URLSession.shared.data(from: url)
       result = try JSONDecoder().decode(Analytics.self, from: data)
     } catch let error {
       logger.log("fetch Analytics error: \(error.localizedDescription, privacy: .public)")
