@@ -16,12 +16,20 @@ class Generate {
     
   }
   
+  func calculate() -> Any?  {
+    
+    return nil
+  }
+  
+  func write() {
+    
+  }
+  
   // TODO: - The output from this can be piped into the Analyse step
-  func generate(events: [Any], with configuration: Configuration) -> Any? {
+  func generate(events: [Any], with configuration: Configuration){
     
     logger.log("In Generate")
     
-    return nil
   }
   
 }
