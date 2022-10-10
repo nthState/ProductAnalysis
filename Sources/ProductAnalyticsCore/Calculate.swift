@@ -16,9 +16,11 @@ class Calculate {
     
     let url: URL
     if let overrideURL = configuration.jsonURL {
+      logger.log("Using JSON override URL: \(overrideURL)")
       url = overrideURL
     } else {
-      url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalytics/main/Tests/ProductAnalyticsTests/ExampleProductKeys.json")!
+      logger.log("Calling API to fetch JSON")
+      url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalytics/main/Tests/ProductAnalyticsCoreTests/Resources/ExampleProductKeys.json")!
     }
     
     return try await fetchAnalytics(url: url)
