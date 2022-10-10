@@ -13,16 +13,10 @@ class Generate {
   private let logger = Logger(subsystem: subsystem, category: "Generate")
   
   func run(analytics: Analytics, with configuration: Configuration) async {
-    
+    logger.log("In Generate")
   }
 
   func write() {
-    
-  }
-  
-  func generate(events: [Any], with configuration: Configuration){
-    
-    logger.log("In Generate")
     
   }
   

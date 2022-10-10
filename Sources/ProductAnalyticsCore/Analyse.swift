@@ -25,6 +25,7 @@ class Analyse {
   }
   
   func run(analytics: Analytics, with configuration: Configuration) async -> [String] {
+    logger.log("In Analyse")
     return []
   }
   

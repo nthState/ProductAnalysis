@@ -13,7 +13,7 @@ class AnalysisReporter {
   private let logger = Logger(subsystem: subsystem, category: "AnalysisReporter")
   
   public init() {
-    
+    logger.log("In AnalysisReporter")
   }
   
 }
@@ -21,7 +21,7 @@ class AnalysisReporter {
 extension AnalysisReporter {
   
   @discardableResult
-  public func reportAnalysis(results: [String]) async throws -> Analytics {
+  public func reportAnalysis(results: [String]) async throws -> String {
     
     guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
       throw ProductAnalyticsError.invalidURL
@@ -30,8 +30,14 @@ extension AnalysisReporter {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
-    let (data, _) = try await URLSession.shared.data(for: request)
-    let result = try JSONDecoder().decode(Analytics.self, from: data)
+    let result: String
+    do {
+      let (data, _) = try await URLSession.shared.data(for: request)
+      result = try JSONDecoder().decode(String.self, from: data)
+    } catch let error {
+      logger.log("AnalysisReporter error: \(error.localizedDescription, privacy: .public)")
+      throw error
+    }
     return result
   }
 }
