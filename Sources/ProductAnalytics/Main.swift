@@ -56,6 +56,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       logger.log("has error: \(error.localizedDescription, privacy: .public)")
     }
     
+    print("ProductAnalytics Finished")
   }
   
   // MARK: - Build Configuration
