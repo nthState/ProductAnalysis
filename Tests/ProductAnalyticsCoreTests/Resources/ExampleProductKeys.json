@@ -3,15 +3,15 @@
     "General": {
       "Launch": {
         "children": [{
-            "name": "launch",
-            "value": "launch"
+            "name": "launchName",
+            "value": "on_launch"
           }
         ]
       },
       "Quit": {
         "children": [{
-          "name": "terminate",
-          "value": "terminate"
+          "name": "terminateName",
+          "value": "on_terminate"
         }]
       }
     }

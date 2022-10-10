@@ -10,28 +10,26 @@ import OSLog
 
 class Calculate {
   
-  let logger = Logger(subsystem: subsystem, category: "Calculate")
+  private let logger = Logger(subsystem: subsystem, category: "Calculate")
   
-  func run(with configuration: Configuration) async {
+  func run(with configuration: Configuration) async throws -> Analytics {
     
-  }
-  
-  func calculate() -> Any?  {
+    let url: URL
+    if let overrideURL = configuration.jsonURL {
+      url = overrideURL
+    } else {
+      url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalytics/main/Tests/ProductAnalyticsTests/ExampleProductKeys.json")!
+    }
     
-    return nil
+    return try await fetchAnalytics(url: url)
   }
-  
   
 }
 
 extension Calculate {
   
-  public func fetchAnalytics() async throws -> Analytics {
-    
-    guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
-      throw ProductAnalyticsError.invalidURL
-    }
-    
+  public func fetchAnalytics(url: URL) async throws -> Analytics {
+
     let (data, _) = try await URLSession.shared.data(from: url)
     let result = try JSONDecoder().decode(Analytics.self, from: data)
     return result

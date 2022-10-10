@@ -10,7 +10,7 @@ import OSLog
 
 class Analyse {
   
-  let logger = Logger(subsystem: subsystem, category: "Analyse")
+  private let logger = Logger(subsystem: subsystem, category: "Analyse")
   
   let sourceKit = SourceKit()
   
@@ -24,8 +24,8 @@ class Analyse {
     values = sourceKit.values!
   }
   
-  func run(with configuration: Configuration) async {
-    
+  func run(analytics: Analytics, with configuration: Configuration) async -> [String] {
+    return []
   }
   
 }
@@ -79,20 +79,3 @@ extension Analyse {
   
 }
 
-extension Analyse {
-  
-  @discardableResult
-  public func reportAnalysis() async throws -> Analytics {
-    
-    guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
-      throw ProductAnalyticsError.invalidURL
-    }
-    
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    let (data, _) = try await URLSession.shared.data(for: request)
-    let result = try JSONDecoder().decode(Analytics.self, from: data)
-    return result
-  }
-}

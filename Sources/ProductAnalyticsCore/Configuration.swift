@@ -17,14 +17,16 @@ public struct Configuration: Decodable {
   public let reportAnalysisResults: Bool
   public let generateSourceCode: Bool
   public let outputFolder: String?
+  public let jsonURL: URL?
   
-  public init(warningsAsErrors: Bool, accessToken: String, enableAnalysis: Bool, reportAnalysisResults: Bool, generateSourceCode: Bool, outputFolder: String?) {
+  public init(warningsAsErrors: Bool, accessToken: String, enableAnalysis: Bool, reportAnalysisResults: Bool, generateSourceCode: Bool, outputFolder: String?, jsonURL: URL?) {
     self.warningsAsErrors = warningsAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis
     self.reportAnalysisResults = reportAnalysisResults
     self.generateSourceCode = generateSourceCode
     self.outputFolder = outputFolder
+    self.jsonURL = jsonURL
   }
   
   // MARK: Decodable
@@ -36,6 +38,7 @@ public struct Configuration: Decodable {
     case reportAnalysisResults
     case generateSourceCode
     case outputFolder
+    case jsonURL
   }
   
   public init(from decoder: Decoder) throws {
@@ -46,6 +49,7 @@ public struct Configuration: Decodable {
     self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
     self.generateSourceCode = try container.decode(Bool.self, forKey: .generateSourceCode)
     self.outputFolder = try container.decode(String?.self, forKey: .outputFolder)
+    self.jsonURL = try container.decode(URL?.self, forKey: .jsonURL)
   }
 }
 
@@ -58,6 +62,7 @@ extension Configuration: CustomStringConvertible {
       reportAnalysisResults: \(reportAnalysisResults)
       generateSourceCode: \(generateSourceCode)
       outputFolder: \(outputFolder ?? "none_set")
+      jsonURL: \(String(describing: jsonURL))
       """
   }
 }

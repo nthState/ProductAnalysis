@@ -27,7 +27,10 @@ let package = Package(
     .target(name: "ProductAnalyticsCore", dependencies: ["Csourcekitd"]),
     .target(name: "Csourcekitd", dependencies: []),
     .testTarget(
-      name: "ProductAnalyticsTests",
-      dependencies: ["ProductAnalytics"]),
+      name: "ProductAnalyticsCoreTests",
+      dependencies: ["ProductAnalyticsCore"],
+      resources: [
+        .copy("Resources/ExampleProductKeys.json")
+      ])
   ]
 )

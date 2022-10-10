@@ -26,27 +26,26 @@ public class Service {
     logger.log("Running with configuration: \(configuration, privacy: .public)")
     
     let calculate = Calculate()
-    await calculate.run(with: configuration)
+    let analytics = try await calculate.run(with: configuration)
     
     if configuration.generateSourceCode {
       let generate = Generate()
-      await generate.run(with: configuration)
+      await generate.run(analytics: analytics, with: configuration)
     }
     
     if configuration.enableAnalysis {
       
       let analyse = Analyse()
-      await analyse.run(with: configuration)
+      let analysisResults = await analyse.run(analytics: analytics, with: configuration)
       
       if configuration.reportAnalysisResults {
-        try await analyse.reportAnalysis()
+        
+        let analysisReporter = AnalysisReporter()
+        
+        try await analysisReporter.reportAnalysis(results: analysisResults)
       }
     }
     
   }
 
-}
-
-public class Analytics: Codable {
-  let a: String
 }

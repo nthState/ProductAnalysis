@@ -10,9 +10,9 @@ import OSLog
 
 class Generate {
   
-  let logger = Logger(subsystem: subsystem, category: "Generate")
+  private let logger = Logger(subsystem: subsystem, category: "Generate")
   
-  func run(with configuration: Configuration) async {
+  func run(analytics: Analytics, with configuration: Configuration) async {
     
   }
 

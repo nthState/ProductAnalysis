@@ -74,7 +74,8 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
                                     enableAnalysis: enableAnalysis,
                                     reportAnalysisResults: reportAnalysisResults,
                                     generateSourceCode: generateSourceCode,
-                                    outputFolder: outputFolder)
+                                    outputFolder: outputFolder,
+                                    jsonURL: URL(string: jsonFilePath ?? ""))
     }
     return configuration
   }
