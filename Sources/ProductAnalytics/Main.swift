@@ -112,6 +112,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     }
     
     let decoder = PropertyListDecoder()
-    return try? decoder.decode(Configuration.self, from: data)
+    do {
+      return try decoder.decode(Configuration.self, from: data)
+    } catch let error {
+      logger.log("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
+      throw error
+    }
   }
 }
