@@ -86,7 +86,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   internal mutating func findConfiguration(projectDir: URL?) -> Configuration? {
     
     guard let projectDir else {
-      logger.log("Xcode enrionment variable $PROJECT_DIR is nil")
+      logger.log("Xcode environment variable $PROJECT_DIR is nil")
       return nil
     }
     
