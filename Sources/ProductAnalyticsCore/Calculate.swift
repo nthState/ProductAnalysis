@@ -38,7 +38,7 @@ extension Calculate {
     do {
       result = try JSONDecoder().decode(Analytics.self, from: data)
     } catch let error {
-      logger.error("fetch Analytics error: \(error.localizedDescription, privacy: .public)")
+      logger.log("fetch Analytics error: \(error.localizedDescription, privacy: .public)")
       throw error
     }
     
