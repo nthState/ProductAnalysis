@@ -48,8 +48,8 @@ public struct Configuration: Decodable {
     self.enableAnalysis = try container.decode(Bool.self, forKey: .enableAnalysis)
     self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
     self.generateSourceCode = try container.decode(Bool.self, forKey: .generateSourceCode)
-    self.outputFolder = try container.decode(String?.self, forKey: .outputFolder)
-    self.jsonURL = try container.decode(URL?.self, forKey: .jsonURL)
+    self.outputFolder = try container.decodeIfPresent(String.self, forKey: .outputFolder)
+    self.jsonURL = try container.decodeIfPresent(URL.self, forKey: .jsonURL)
   }
 }
 
