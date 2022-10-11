@@ -1,0 +1,39 @@
+//
+//  File.swift
+//  
+//
+//  Created by Chris Davis on 11/10/2022.
+//
+
+import Foundation
+
+protocol Analyticable {
+  
+}
+
+enum Level1 {
+  enum Level2A {
+    struct Level2AStruct: Analyticable {
+      
+    }
+  }
+  enum Level2B {
+    struct Level2BStruct: Analyticable {
+      // Should not be initalized
+    }
+  }
+}
+
+class SemiImplemented {
+  
+  let key: Level1.Level2A.Level2AStruct
+  
+  func run() {
+    
+  }
+  
+  func execute(event: Analyticable) {
+    
+  }
+  
+}

@@ -19,6 +19,8 @@ class Analyse {
   let requests: sourcekitd_requests!
   let values: sourcekitd_values!
   
+  var calls = Set<String>()
+  
   init() {
     keys = sourceKit.keys!
     requests = sourceKit.requests!
@@ -53,7 +55,21 @@ class Analyse {
     
     let _ = findFeatures(inFile: url.absoluteString)
     
-    return []
+    let expected: Set<String> = ["Level1.Level2A.Level2AStruct", "Level1.Level2B.Level2BStruct"]
+    
+    // We want only the calls that are not found:
+    // https://www.programiz.com/swift-programming/sets
+    let missing = Array(expected.subtracting(calls))
+    
+    // Generate messages
+    let m = missing.map({ generate(message: "\($0) not implemented", warningsAsErrors: configuration.warningsAsErrors) })
+    
+    // Write to build log
+    m.forEach { message in
+      print(message)
+    }
+    
+    return m
   }
   
 }
@@ -71,27 +87,12 @@ extension Analyse {
     let response = sourceKit.sendSync(req)
     logger.log("Response: \(response)")
     
-    var log = [String]()
-    recurse(response: response)
-//    response.recurse(uid: keys.substructure) { dict in
-//      let kind: SKUID? = dict[self.keys.kind]
-//      print("Found Kind: \(kind)")
-//
-//      //kind?.uid == self.keys.
-////      guard kind?.uid == self.values.decl_enum else {
-////        return
-////      }
-////      guard let inheritedtypes: SKResponseArray = dict[self.keys.inheritedtypes] else {
-////        return
-////      }
-////      for inheritance in (0..<inheritedtypes.count).map({ inheritedtypes.get($0) }) {
-////        if let name: String = inheritance[self.keys.name], name == "Feature" {
-////          features.append(name)
-////        }
-////      }
-//    }
     
-    return log
+    recurse(response: response)
+    
+    calls.forEach({ print("Found: \($0)") })
+    
+    return []
   }
   
   func recurse(response: SKResponseDictionary) {
@@ -107,15 +108,11 @@ extension Analyse {
       
       let name: String? = dict[self.keys.name]
 
-      print("found call: \(name)")
-//      guard let inheritedtypes: SKResponseArray = dict[self.keys.inheritedtypes] else {
-//        return
-//      }
-//      for inheritance in (0..<inheritedtypes.count).map({ inheritedtypes.get($0) }) {
-//        if let name: String = inheritance[self.keys.name], name == "Feature" {
-//          features.append(name)
-//        }
-//      }
+      print("found call: \(String(describing: name))")
+
+      if name == "Level1.Level2A.Level2AStruct" {
+        self.calls.insert(name!)
+      }
     }
   }
   
@@ -123,19 +120,9 @@ extension Analyse {
 
 extension Analyse {
   
-//  func run(events: [String], with configuration: Configuration) {
-//
-//    logger.log("In Analyse")
-//
-//    writeToBuildLog(message: "test", warningsAsErrors: configuration.warningsAsErrors)
-//  }
-  
-  /**
-   Note: This `print` statement is required so that it emits into the build stream
-   */
-  internal func writeToBuildLog(message: String, warningsAsErrors: Bool) {
+  internal func generate(message: String, warningsAsErrors: Bool) -> String {
     let prefix = warningsAsErrors ? "error" : "warning"
-    print("\(prefix): \(message)")
+    return "\(prefix): \(message)"
   }
   
 }

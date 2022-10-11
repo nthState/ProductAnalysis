@@ -32,6 +32,7 @@ let package = Package(
       resources: [
         .copy("Resources/ExampleProductKeys.json"),
         .copy("Resources/SemiImplemented.txt"),
+        .copy("Resources/DefinedNotUsed.txt")
       ])
   ]
 )
