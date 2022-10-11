@@ -30,7 +30,8 @@ let package = Package(
       name: "ProductAnalyticsCoreTests",
       dependencies: ["ProductAnalyticsCore"],
       resources: [
-        .copy("Resources/ExampleProductKeys.json")
+        .copy("Resources/ExampleProductKeys.json"),
+        .copy("Resources/SemiImplemented.txt"),
       ])
   ]
 )

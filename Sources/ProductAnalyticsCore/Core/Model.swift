@@ -11,6 +11,12 @@ public struct Analytics: Decodable {
   
   let categories: [String: [String: SubCategory]]
   
+  // MARK: Constructor
+  
+  public init(categories: [String: [String: SubCategory]]) {
+    self.categories = categories
+  }
+  
   // MARK: Decodable
   
   enum CodingKeys: CodingKey {
@@ -46,6 +52,14 @@ public struct Analytics: Decodable {
 
 public struct SubCategory: Decodable {
   let children: [Child]
+  
+  // MARK: Constructor
+  
+  public init(children: [Child]) {
+    self.children = children
+  }
+  
+  // MARK: Decodable
   
   enum CodingKeys: CodingKey {
     case children

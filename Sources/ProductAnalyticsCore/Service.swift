@@ -36,7 +36,7 @@ public class Service {
     if configuration.enableAnalysis {
       
       let analyse = Analyse()
-      let analysisResults = await analyse.run(analytics: analytics, with: configuration)
+      let analysisResults = await analyse.run(url: URL(string: "not set yet, maybe project dir")!, analytics: analytics, with: configuration)
       
       if configuration.reportAnalysisResults {
         

@@ -16,7 +16,7 @@ final class ProductAnalyticsCoreWriteTests: XCTestCase {
     let configuration = Configuration(warningsAsErrors: false, accessToken: "", enableAnalysis: true, reportAnalysisResults: true, generateSourceCode: true, outputFolder: outputFolder, jsonURL: nil, projectDir: project)
     
     let generate = Generate()
-    let result = try await generate.run(analytics: analytics, with: configuration)
+    _ = try await generate.run(analytics: analytics, with: configuration)
     
     let outPath = outputFolder.appendingPathComponent(Generate.swiftFileName).absoluteString
     let exists = FileManager.default.fileExists(atPath: outPath)

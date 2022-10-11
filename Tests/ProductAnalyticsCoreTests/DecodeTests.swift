@@ -10,9 +10,9 @@ final class ProductAnalyticsCoreTests: XCTestCase {
     
     let calculate = Calculate()
     do {
-      let result = try await calculate.fetchAnalytics(url: url)
+      _ = try await calculate.fetchAnalytics(url: url)
     } catch let error {
-      XCTFail("Decode should have passed")
+      XCTFail("Decode should have passed: \(error.localizedDescription)")
     }
     
   }
