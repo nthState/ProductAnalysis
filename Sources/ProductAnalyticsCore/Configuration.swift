@@ -20,7 +20,7 @@ public struct Configuration: Decodable {
   public let jsonURL: URL?
   internal let projectDir: URL?
   
-  public init(warningsAsErrors: Bool, accessToken: String, enableAnalysis: Bool, reportAnalysisResults: Bool, generateSourceCode: Bool, outputFolder: URL?, jsonURL: URL?, projectDir: URL?) {
+  public init(warningsAsErrors: Bool = false, accessToken: String = "", enableAnalysis: Bool = true, reportAnalysisResults: Bool = true, generateSourceCode: Bool = true, outputFolder: URL? = nil, jsonURL: URL? = nil, projectDir: URL? = nil) {
     self.warningsAsErrors = warningsAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis
