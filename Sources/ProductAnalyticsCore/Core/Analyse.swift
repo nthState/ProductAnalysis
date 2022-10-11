@@ -97,14 +97,17 @@ extension Analyse {
   func recurse(response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
-      print("Found Kind: \(kind)")
+      //let name = dict[self.keys.name]
+      //print("Found Kind: \(kind)")
       self.recurse(response: dict)
       
-      
-      //kind?.uid == self.keys.
-      guard kind?.uid == "source.lang.swift.expr.call" else {
+      guard kind?.uid == self.values.expr_call else {
         return
       }
+      
+      let name: String? = dict[self.keys.name]
+
+      print("found call: \(name)")
 //      guard let inheritedtypes: SKResponseArray = dict[self.keys.inheritedtypes] else {
 //        return
 //      }
