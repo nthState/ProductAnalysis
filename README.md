@@ -42,14 +42,34 @@ Add a `ProductAnalytics.plist` to the root of your project
 <plist version="1.0">
 <dict>
   <key>warningsAsErrors</key>
+  <false/>
+  <key>enableAnalysis</key>
+  <true/>
+  <key>accessToken</key>
+  <string>my_token</string>
+  <key>reportAnalysisResults</key>
+  <true/>
+  <key>generateSourceCode</key>
   <true/>
 </dict>
 </plist>
+
 ```
 
-### Requirements
+## Running Tests
 
-- [ ] An iOS/tvOS/macOS/iPadOS Project
+```
+swift test --enable-code-coverage
+```
+
+Then to get a code-coverage report
+
+```
+/Library/Developer/CommandLineTools/usr/bin/llvm-cov \
+  report ".build/x86_64-apple-macosx/debug/ProductAnalyticsPackageTests.xctest/Contents/MacOS/ProductAnalyticsPackageTests" \
+  -instr-profile=".build/x86_64-apple-macosx/debug/codecov/default.profdata" \
+  -use-color
+```
 
 ---
 
