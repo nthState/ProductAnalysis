@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import sourcekitd
 
 class Analyse {
   
@@ -71,12 +72,39 @@ extension Analyse {
     logger.log("Response: \(response)")
     
     var log = [String]()
+    recurse(response: response)
+//    response.recurse(uid: keys.substructure) { dict in
+//      let kind: SKUID? = dict[self.keys.kind]
+//      print("Found Kind: \(kind)")
+//
+//      //kind?.uid == self.keys.
+////      guard kind?.uid == self.values.decl_enum else {
+////        return
+////      }
+////      guard let inheritedtypes: SKResponseArray = dict[self.keys.inheritedtypes] else {
+////        return
+////      }
+////      for inheritance in (0..<inheritedtypes.count).map({ inheritedtypes.get($0) }) {
+////        if let name: String = inheritance[self.keys.name], name == "Feature" {
+////          features.append(name)
+////        }
+////      }
+//    }
+    
+    return log
+  }
+  
+  func recurse(response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
       print("Found Kind: \(kind)")
-//      guard kind?.uid == self.values.decl_enum else {
-//        return
-//      }
+      self.recurse(response: dict)
+      
+      
+      //kind?.uid == self.keys.
+      guard kind?.uid == "source.lang.swift.expr.call" else {
+        return
+      }
 //      guard let inheritedtypes: SKResponseArray = dict[self.keys.inheritedtypes] else {
 //        return
 //      }
@@ -86,9 +114,8 @@ extension Analyse {
 //        }
 //      }
     }
-    
-    return log
   }
+  
 }
 
 extension Analyse {

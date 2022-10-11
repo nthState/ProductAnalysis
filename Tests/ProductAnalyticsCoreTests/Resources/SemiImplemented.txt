@@ -26,6 +26,10 @@ enum Level1 {
 
 class SemiImplemented {
   
+  private class Inside {
+    
+  }
+  
   func run() {
     execute(event: Level1.Level2A.Level2AStruct())
   }
