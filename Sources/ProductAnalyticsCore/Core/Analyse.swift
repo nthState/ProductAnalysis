@@ -84,7 +84,10 @@ extension Analyse {
         do {
           let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
           if fileAttributes.isRegularFile! {
-            files.append(URL(string: fileURL.path)!)
+            guard let url = URL(string: fileURL.path) else {
+              continue
+            }
+            files.append(url)
           }
         } catch { print(error, fileURL) }
       }
