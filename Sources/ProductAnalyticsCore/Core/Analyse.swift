@@ -51,14 +51,14 @@ class Analyse {
   func run(analytics: Analytics, with configuration: Configuration) async throws -> [String] {
     logger.log("In Analyse")
     
+    expected = extractKeys(analytics: analytics)
+    logger.log("Expected Keys: \(self.expected, privacy: .public)")
+    
     let files = listFiles(in: configuration.projectDir)
     for file in files {
       logger.log("Analyse file: \(file)")
       findFeatures(inFile: file.absoluteString)
     }
-    
-    expected = extractKeys(analytics: analytics)
-    logger.log("Expected Keys: \(self.expected, privacy: .public)")
     
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
