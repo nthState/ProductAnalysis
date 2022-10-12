@@ -8,7 +8,7 @@ import XCTest
 @testable import ProductAnalyticsCore
 
 final class AnalysisTests: XCTestCase {
-  
+  // TODO: What can be done about the prefix of AnalyticKeys.
   func testAnalysis() async throws {
     
     let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
@@ -33,7 +33,7 @@ final class AnalysisTests: XCTestCase {
     let results = try await analysis.run(analytics: analytics, with: configuration)
     
     let expected: [String] = [
-      "warning: Level1.Level2B.Level2BStruct not implemented"
+      "warning: AnalyticKeys.Level1.Level2B.Level2BStruct not implemented"
     ]
     
     XCTAssertEqual(results, expected, "Analysis results should match")
@@ -62,8 +62,8 @@ final class AnalysisTests: XCTestCase {
     let results = try await analysis.run(analytics: analytics, with: configuration)
     
     let expected: [String] = [
-      "warning: Level1.Level2A.Level2AStruct not implemented", // TODO: Extract as a template string
-      "warning: Level1.Level2B.Level2BStruct not implemented",
+      "warning: AnalyticKeys.Level1.Level2A.Level2AStruct not implemented", // TODO: Extract as a template string
+      "warning: AnalyticKeys.Level1.Level2B.Level2BStruct not implemented",
     ]
     
     XCTAssertEqual(results.sorted(), expected.sorted(), "Analysis results should match")
