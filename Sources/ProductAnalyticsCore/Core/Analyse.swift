@@ -19,6 +19,7 @@ class Analyse {
   let values: sourcekitd_values!
   
   var calls = Set<String>()
+  var expected = Set<String>()
   
   init() {
     keys = sourceKit.keys!
@@ -56,7 +57,7 @@ class Analyse {
       findFeatures(inFile: file.absoluteString)
     }
     
-    let expected: Set<String> = extractKeys(analytics: analytics)
+    expected = extractKeys(analytics: analytics)
     
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
@@ -141,9 +142,11 @@ extension Analyse {
         return
       }
       
-      let name: String? = dict[self.keys.name]
-      if name == "Level1.Level2A.Level2AStruct" {
-        self.calls.insert(name!)
+      if let name: String = dict[self.keys.name] {
+        //if name == "Level1.Level2A.Level2AStruct" {
+        if self.expected.contains(name) {
+          self.calls.insert(name)
+        }
       }
     }
   }
