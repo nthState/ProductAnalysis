@@ -1,8 +1,7 @@
 //
-//  File.swift
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//
-//  Created by Chris Davis on 08/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
@@ -31,7 +30,7 @@ class Calculate {
 extension Calculate {
   
   public func fetchAnalytics(url: URL) async throws -> Analytics {
-
+    
     let result: Analytics
     do {
       let (data, _) = try await URLSession.shared.data(from: url)

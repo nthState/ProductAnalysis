@@ -1,3 +1,9 @@
+//
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
+//
+//  See LICENSE for license information.
+//
+
 import ProductAnalyticsCore
 import ArgumentParser
 import Foundation
@@ -47,13 +53,15 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   
   public mutating func run() async throws {
     
+    print("ProductAnalytics Starting")
+    
     let service = Service()
     let configuration = getConfiguration()
     
     do {
       try await service.run(with: configuration)
     } catch let error {
-      logger.error("has error: \(error.localizedDescription, privacy: .public)")
+      logger.error("Run error: \(error.localizedDescription, privacy: .public)")
     }
     
     print("ProductAnalytics Finished")
@@ -70,14 +78,18 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       
       logger.log("No ProductAnalytics.plist found, reading options from command line, if any")
       
+      guard let projectDir = urlToProjectDir() else {
+        fatalError("$PROJECT_DIR not found, exiting")
+      }
+      
       configuration = Configuration(warningsAsErrors: warningsAsErrors,
                                     accessToken: accessToken ?? "none_set",
                                     enableAnalysis: enableAnalysis,
                                     reportAnalysisResults: reportAnalysisResults,
                                     generateSourceCode: generateSourceCode,
-                                    outputFolder: URL(string: outputFolder ?? ""),
+                                    folderName: nil,
                                     jsonURL: URL(string: jsonFilePath ?? ""),
-                                    projectDir: urlToProjectDir())
+                                    projectDir: projectDir)
     }
     return configuration
   }
@@ -94,20 +106,21 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     }
     
     let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
+    let configurationPath = configurationURL.absoluteString
     
     logger.log("Looking for file at url: \(configurationURL, privacy: .public)")
     
-    guard FileManager.default.fileExists(atPath: configurationURL.absoluteString) else {
+    guard FileManager.default.fileExists(atPath: configurationPath) else {
       logger.log("Can't find url: \(configurationURL, privacy: .public)")
       return nil
     }
     
-    guard FileManager.default.isReadableFile(atPath: configurationURL.absoluteString) else {
+    guard FileManager.default.isReadableFile(atPath: configurationPath) else {
       logger.log("File not readable: \(configurationURL, privacy: .public)")
       return nil
     }
     
-    guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
+    guard let data = FileManager.default.contents(atPath: configurationPath) else {
       logger.log("Can't get data of: \(configurationURL, privacy: .public)")
       return nil
     }

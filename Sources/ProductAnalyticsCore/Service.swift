@@ -1,16 +1,11 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 08/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
 import OSLog
-
-enum ProductAnalyticsError: Error {
-  case invalidURL
-}
 
 public let subsystem = "com.productanalytics"
 
@@ -21,11 +16,11 @@ public class Service {
   public init() {
     
   }
-
+  
   public func run(with configuration: Configuration) async throws {
     logger.log("Running with configuration: \(configuration, privacy: .public)")
     
-    let calculate = Calculate()
+    let calculate = Calculate() //Should be named something to do with fetching
     let analytics = try await calculate.run(with: configuration)
     
     if configuration.generateSourceCode {
@@ -36,7 +31,7 @@ public class Service {
     if configuration.enableAnalysis {
       
       let analyse = Analyse()
-      let analysisResults = await analyse.run(url: URL(string: "not set yet, maybe project dir")!, analytics: analytics, with: configuration)
+      let analysisResults = try await analyse.run(analytics: analytics, with: configuration)
       
       if configuration.reportAnalysisResults {
         
@@ -47,5 +42,5 @@ public class Service {
     }
     
   }
-
+  
 }

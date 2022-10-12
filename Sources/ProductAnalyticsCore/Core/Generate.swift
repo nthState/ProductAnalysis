@@ -1,8 +1,7 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 08/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
@@ -11,12 +10,15 @@ import OSLog
 class Generate {
   
   static let swiftFileName = "Analytics.generated.swift"
+  static let folderName = "Analysis"
   
   private let logger = Logger(subsystem: subsystem, category: "Generate")
   
   public func run(analytics: Analytics, with configuration: Configuration) async throws {
     
-    let dst: URL = configuration.outputFolder ?? URL(string: "no_idea")!
+    let base: URL = configuration.projectDir
+    let folderName = configuration.folderName ?? Generate.folderName
+    let dst = base.appendingPathComponent(folderName)
     
     var isDirectory: ObjCBool = false
     if !FileManager.default.fileExists(atPath: dst.absoluteString, isDirectory: &isDirectory) {
@@ -24,9 +26,11 @@ class Generate {
       try FileManager.default.createDirectory(atPath: dst.absoluteString, withIntermediateDirectories: true)
     }
     
+    generateSwift(root: dst, analytics: analytics)
+  }
+  
+  internal func generateSwift(root dst: URL, analytics: Analytics) {
     let swift = dst.appendingPathComponent(Generate.swiftFileName)
-    
-    // TODO: Need project dir here
     
     logger.log("In Generate: \(swift, privacy: .public)")
     

@@ -1,3 +1,9 @@
+//
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
+//
+//  See LICENSE for license information.
+//
+
 import XCTest
 @testable import ProductAnalyticsCore
 
@@ -5,25 +11,26 @@ final class AnalysisTests: XCTestCase {
   
   func testAnalysis() async throws {
     
-    let outputFolder = URL(fileURLWithPath: NSTemporaryDirectory().appending("MyRootOutput"))
-    let project = URL(fileURLWithPath: NSTemporaryDirectory().appending("MyRootProject"))
+    let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
     
     let bundle = Bundle.module
-    let url = URL(string: bundle.url(forResource: "SemiImplemented", withExtension: "txt")!.path)!
-    //let url = URL(string: "/Users/chrisdavis/Documents/Projects/ProductAnalytics/Sources/ProductAnalytics/Main.swift")!
+    let url = bundle.url(forResource: "Resources/SemiImplemented", withExtension: "txt")!
     
-    print(url)
+    try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
     
-    let configuration = Configuration(warningsAsErrors: false, accessToken: "", enableAnalysis: true, reportAnalysisResults: true, generateSourceCode: true, outputFolder: outputFolder, jsonURL: nil, projectDir: project)
+    let proj = URL(string: project.path)!
     
-    var analytics = Analytics(categories: ["Level1" : [
+    let configuration = Configuration(projectDir: proj)
+    
+    
+    let analytics = Analytics(categories: ["Level1" : [
       "Level2A" : SubCategory(children: [Child(name: "Level2AStruct", value: "")]),
-      "Level2B" : SubCategory(children: [])
+      "Level2B" : SubCategory(children: [Child(name: "Level2BStruct", value: "")])
     ]])
     
     
     let analysis = Analyse()
-    let results = await analysis.run(url: url, analytics: analytics, with: configuration)
+    let results = try await analysis.run(analytics: analytics, with: configuration)
     
     let expected: [String] = [
       "warning: Level1.Level2B.Level2BStruct not implemented"
@@ -34,25 +41,25 @@ final class AnalysisTests: XCTestCase {
   
   func testDefinedNotUsed() async throws {
     
-    let outputFolder = URL(fileURLWithPath: NSTemporaryDirectory().appending("MyRootOutput"))
-    let project = URL(fileURLWithPath: NSTemporaryDirectory().appending("MyRootProject"))
+    let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
     
     let bundle = Bundle.module
-    let url = URL(string: bundle.url(forResource: "DefinedNotUsed", withExtension: "txt")!.path)! // TODO: .copy of Resources folder
-    //let url = URL(string: "/Users/chrisdavis/Documents/Projects/ProductAnalytics/Sources/ProductAnalytics/Main.swift")!
+    let url = bundle.url(forResource: "Resources/DefinedNotUsed", withExtension: "txt")!
     
-    print(url)
+    try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
     
-    let configuration = Configuration(warningsAsErrors: false, accessToken: "", enableAnalysis: true, reportAnalysisResults: true, generateSourceCode: true, outputFolder: outputFolder, jsonURL: nil, projectDir: project) // TODO: use new constructor
+    let proj = URL(string: project.path)!
     
-    var analytics = Analytics(categories: ["Level1" : [
+    let configuration = Configuration(projectDir: proj)
+    
+    let analytics = Analytics(categories: ["Level1" : [
       "Level2A" : SubCategory(children: [Child(name: "Level2AStruct", value: "")]),
       "Level2B" : SubCategory(children: [Child(name: "Level2BStruct", value: "")])
     ]])
     
     
     let analysis = Analyse()
-    let results = await analysis.run(url: url, analytics: analytics, with: configuration)
+    let results = try await analysis.run(analytics: analytics, with: configuration)
     
     let expected: [String] = [
       "warning: Level1.Level2A.Level2AStruct not implemented", // TODO: Extract as a template string

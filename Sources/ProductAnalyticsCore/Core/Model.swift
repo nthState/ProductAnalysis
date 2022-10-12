@@ -1,8 +1,7 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 10/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
@@ -11,13 +10,13 @@ public struct Analytics: Decodable {
   
   let categories: [String: [String: SubCategory]]
   
-  // MARK: Constructor
+  // MARK: - Constructor
   
   public init(categories: [String: [String: SubCategory]]) {
     self.categories = categories
   }
   
-  // MARK: Decodable
+  // MARK: - Decodable
   
   enum CodingKeys: CodingKey {
     case productAnalysis
@@ -29,37 +28,16 @@ public struct Analytics: Decodable {
   }
 }
 
-//public struct Category: Decodable {
-//
-//  let subCategories: [String: SubCategory]
-//
-//  // MARK: Decodable
-//
-//  enum CodingKeys: CodingKey {
-//   // case productAnalysis
-//  }
-//
-//  public init(from decoder: Decoder) throws {
-//    let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//    let container = try decoder.
-//
-//    self.categories = try container.decode([String: SubCategory].self, forKey: .productAnalysis)
-//  }
-//
-//}
-
-
 public struct SubCategory: Decodable {
   let children: [Child]
   
-  // MARK: Constructor
+  // MARK: - Constructor
   
   public init(children: [Child]) {
     self.children = children
   }
   
-  // MARK: Decodable
+  // MARK: - Decodable
   
   enum CodingKeys: CodingKey {
     case children
@@ -70,7 +48,6 @@ public struct SubCategory: Decodable {
     self.children = try container.decode([Child].self, forKey: .children)
   }
 }
-
 
 public struct Child: Decodable {
   let name: String

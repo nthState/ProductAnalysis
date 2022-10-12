@@ -1,12 +1,15 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 10/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
 import OSLog
+
+enum ProductAnalyticsError: Error {
+  case invalidURL
+}
 
 class AnalysisReporter {
   

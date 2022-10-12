@@ -1,8 +1,7 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 08/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
@@ -27,35 +26,37 @@ class Analyse {
     values = sourceKit.values!
   }
   
-//  key.substructure: [
-//    {
-//      key.kind: source.lang.swift.expr.call,
-//      key.name: "Level1.Level2A.Level2AStruct",
-//      key.offset: 376,
-//      key.length: 30,
-//      key.nameoffset: 376,
-//      key.namelength: 28,
-//      key.bodyoffset: 405,
-//      key.bodylength: 0
-//    }
-//  ]
+  //  key.substructure: [
+  //    {
+  //      key.kind: source.lang.swift.expr.call,
+  //      key.name: "Level1.Level2A.Level2AStruct",
+  //      key.offset: 376,
+  //      key.length: 30,
+  //      key.nameoffset: 376,
+  //      key.namelength: 28,
+  //      key.bodyoffset: 405,
+  //      key.bodylength: 0
+  //    }
+  //  ]
   
-  func run(url: URL, analytics: Analytics, with configuration: Configuration) async -> [String] {
+  /**
+   Loop the file, and find all call sites of all analytics keys
+   If found,
+   log key found ok
+   if not found
+   write to build log as either warning or error
+   */
+  
+  func run(analytics: Analytics, with configuration: Configuration) async throws -> [String] {
     logger.log("In Analyse")
     
-    /**
-     Note: We could take a flattened list here instead
-     
-     Loop the file, and find all call sites of all analytics keys
-     If found,
-        log key found ok
-      if not found
-          write to build log as either warning or error
-     */
+    let files = listFiles(in: configuration.projectDir)
+    for file in files {
+      logger.log("Analyse file: \(file)")
+      findFeatures(inFile: file.absoluteString)
+    }
     
-    let _ = findFeatures(inFile: url.absoluteString)
-    
-    let expected: Set<String> = ["Level1.Level2A.Level2AStruct", "Level1.Level2B.Level2BStruct"]
+    let expected: Set<String> = extractKeys(analytics: analytics)
     
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
@@ -76,7 +77,42 @@ class Analyse {
 
 extension Analyse {
   
-  func findFeatures(inFile file: String) -> [String] {
+  internal func listFiles(in url: URL) -> [URL] {
+    var files = [URL]()
+    if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
+      for case let fileURL as URL in enumerator {
+        do {
+          let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+          if fileAttributes.isRegularFile! {
+            files.append(URL(string: fileURL.path)!)
+          }
+        } catch { print(error, fileURL) }
+      }
+    }
+    return files
+  }
+  
+}
+
+extension Analyse {
+  
+  internal func extractKeys(analytics: Analytics) -> Set<String> {
+    var keys = Set<String>()
+    for (categoryName, category) in analytics.categories {
+      for (subCategoryName, subCategory) in category {
+        for child in subCategory.children {
+          keys.insert("\(categoryName).\(subCategoryName).\(child.name)")
+        }
+      }
+    }
+    return keys
+  }
+  
+}
+
+extension Analyse {
+  
+  func findFeatures(inFile file: String) {
     let req = SKRequestDictionary(sourcekitd: sourceKit)
     
     req[keys.request] = requests.editor_open
@@ -87,19 +123,14 @@ extension Analyse {
     let response = sourceKit.sendSync(req)
     logger.log("Response: \(response)")
     
-    
     recurse(response: response)
     
     calls.forEach({ print("Found: \($0)") })
-    
-    return []
   }
   
   func recurse(response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
-      //let name = dict[self.keys.name]
-      //print("Found Kind: \(kind)")
       self.recurse(response: dict)
       
       guard kind?.uid == self.values.expr_call else {
@@ -107,9 +138,6 @@ extension Analyse {
       }
       
       let name: String? = dict[self.keys.name]
-
-      print("found call: \(String(describing: name))")
-
       if name == "Level1.Level2A.Level2AStruct" {
         self.calls.insert(name!)
       }

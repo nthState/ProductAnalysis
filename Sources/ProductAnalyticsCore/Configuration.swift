@@ -1,8 +1,7 @@
 //
-//  File.swift
-//  
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
 //
-//  Created by Chris Davis on 09/10/2022.
+//  See LICENSE for license information.
 //
 
 import Foundation
@@ -16,22 +15,24 @@ public struct Configuration: Decodable {
   public let enableAnalysis: Bool
   public let reportAnalysisResults: Bool
   public let generateSourceCode: Bool
-  public let outputFolder: URL?
+  public let folderName: String?
   public let jsonURL: URL?
-  internal let projectDir: URL?
+  internal let projectDir: URL
   
-  public init(warningsAsErrors: Bool = false, accessToken: String = "", enableAnalysis: Bool = true, reportAnalysisResults: Bool = true, generateSourceCode: Bool = true, outputFolder: URL? = nil, jsonURL: URL? = nil, projectDir: URL? = nil) {
+  // MARK: - Constructor
+  
+  public init(warningsAsErrors: Bool = false, accessToken: String = "", enableAnalysis: Bool = true, reportAnalysisResults: Bool = true, generateSourceCode: Bool = true, folderName: String? = nil, jsonURL: URL? = nil, projectDir: URL) {
     self.warningsAsErrors = warningsAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis
     self.reportAnalysisResults = reportAnalysisResults
     self.generateSourceCode = generateSourceCode
-    self.outputFolder = outputFolder
+    self.folderName = folderName
     self.jsonURL = jsonURL
     self.projectDir = projectDir
   }
   
-  // MARK: Decodable from PLIST
+  // MARK: - Decodable from PLIST
   
   enum CodingKeys: CodingKey {
     case warningsAsErrors
@@ -39,7 +40,7 @@ public struct Configuration: Decodable {
     case enableAnalysis
     case reportAnalysisResults
     case generateSourceCode
-    case outputFolder
+    case folderName
     case jsonURL
     case projectDir
   }
@@ -51,9 +52,9 @@ public struct Configuration: Decodable {
     self.enableAnalysis = try container.decode(Bool.self, forKey: .enableAnalysis)
     self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
     self.generateSourceCode = try container.decode(Bool.self, forKey: .generateSourceCode)
-    self.outputFolder = try container.decodeIfPresent(URL.self, forKey: .outputFolder)
+    self.folderName = try container.decodeIfPresent(String.self, forKey: .folderName)
     self.jsonURL = try container.decodeIfPresent(URL.self, forKey: .jsonURL)
-    self.projectDir = URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
+    self.projectDir = URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")!
   }
 }
 
@@ -65,8 +66,9 @@ extension Configuration: CustomStringConvertible {
       enableAnalysis: \(enableAnalysis)
       reportAnalysisResults: \(reportAnalysisResults)
       generateSourceCode: \(generateSourceCode)
-      outputFolder: \(String(describing: outputFolder))
+      folderName: \(String(describing: folderName))
       jsonURL: \(String(describing: jsonURL))
+      projectDir: \(String(describing: projectDir))
       """
   }
 }

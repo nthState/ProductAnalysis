@@ -1,3 +1,9 @@
+//
+//  Copyright © 2022 Chris Davis, https://www.nthState.com
+//
+//  See LICENSE for license information.
+//
+
 import XCTest
 @testable import ProductAnalyticsCore
 
@@ -6,7 +12,7 @@ final class ProductAnalyticsCoreTests: XCTestCase {
   func testDecode() async throws {
     
     let bundle = Bundle.module
-    let url = bundle.url(forResource: "ExampleProductKeys", withExtension: "json")!
+    let url = bundle.url(forResource: "Resources/ExampleProductKeys", withExtension: "json")!
     
     let calculate = Calculate()
     do {
@@ -16,5 +22,5 @@ final class ProductAnalyticsCoreTests: XCTestCase {
     }
     
   }
-
+  
 }
