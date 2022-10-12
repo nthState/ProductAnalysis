@@ -65,6 +65,8 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     }
     
     print("ProductAnalytics Finished")
+    
+    // TODO: If there was an "error: " we should exit 1
   }
   
   // MARK: - Build Configuration
