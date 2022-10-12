@@ -61,7 +61,7 @@ class Analyse {
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
     let missing = Array(expected.subtracting(calls))
-    logger.log("Missing Keys: \(missing)")
+    logger.log("Missing Keys: \(missing, privacy: .public)")
     
     // Generate messages
     let m = missing.map({ generate(message: "\($0) not implemented", warningsAsErrors: configuration.warningsAsErrors) })
