@@ -106,7 +106,7 @@ extension Analyse {
     for (categoryName, category) in analytics.categories {
       for (subCategoryName, subCategory) in category {
         for child in subCategory.children {
-          keys.insert("\(categoryName).\(subCategoryName).\(child.name)")
+          keys.insert("AnalyticKeys.\(categoryName).\(subCategoryName).\(child.name)")
         }
       }
     }
@@ -143,10 +143,9 @@ extension Analyse {
       }
       
       if let name: String = dict[self.keys.name] {
-        //if name == "Level1.Level2A.Level2AStruct" {
-        let fullName = "AnalyticKeys.\(name)"
-        if self.expected.contains(fullName) {
-          self.calls.insert(fullName)
+        self.logger.log("Call: \(name, privacy: .public)")
+        if self.expected.contains(name) {
+          self.calls.insert(name)
         }
       }
     }
