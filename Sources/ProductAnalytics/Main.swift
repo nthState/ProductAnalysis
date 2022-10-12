@@ -105,22 +105,27 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       return nil
     }
     
-    let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
-    let configurationPath = configurationURL.absoluteString
-    
-    logger.log("Looking for file at url: \(configurationURL, privacy: .public)")
-    
-    guard FileManager.default.fileExists(atPath: configurationPath) else {
-      logger.log("Can't find url: \(configurationURL, privacy: .public)")
+    guard let configurationURL = findFile(named: "ProductAnalytics.plist", at: projectDir) else {
+      logger.log("Can't find ProductAnalytics.plist")
       return nil
     }
     
-    guard FileManager.default.isReadableFile(atPath: configurationPath) else {
-      logger.log("File not readable: \(configurationURL, privacy: .public)")
-      return nil
-    }
+//    let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
+//    let configurationPath = configurationURL.absoluteString
+//
+//    logger.log("Looking for file at url: \(configurationURL, privacy: .public)")
+//
+//    guard FileManager.default.fileExists(atPath: configurationPath) else {
+//      logger.log("Can't find url: \(configurationURL, privacy: .public)")
+//      return nil
+//    }
+//
+//    guard FileManager.default.isReadableFile(atPath: configurationPath) else {
+//      logger.log("File not readable: \(configurationURL, privacy: .public)")
+//      return nil
+//    }
     
-    guard let data = FileManager.default.contents(atPath: configurationPath) else {
+    guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
       logger.log("Can't get data of: \(configurationURL, privacy: .public)")
       return nil
     }
@@ -132,5 +137,24 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       logger.error("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
       return nil
     }
+  }
+  
+  internal func findFile(named: String, at url: URL) -> URL? {
+    if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
+      for case let fileURL as URL in enumerator {
+        do {
+          let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+          if fileAttributes.isRegularFile! {
+            guard let url = URL(string: fileURL.path) else {
+              continue
+            }
+            if url.lastPathComponent == named {
+              return url
+            }
+          }
+        } catch { print(error, fileURL) }
+      }
+    }
+    return nil
   }
 }
