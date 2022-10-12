@@ -17,7 +17,7 @@ public struct Configuration: Decodable {
   public let generateSourceCode: Bool
   public let folderName: String?
   public let jsonURL: URL?
-  internal let projectDir: URL
+  public var projectDir: URL
   
   // MARK: - Constructor
   

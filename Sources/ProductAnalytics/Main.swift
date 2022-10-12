@@ -132,7 +132,9 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     
     let decoder = PropertyListDecoder()
     do {
-      return try decoder.decode(Configuration.self, from: data)
+      var configuration = try decoder.decode(Configuration.self, from: data)
+      configuration.projectDir = configurationURL.deletingLastPathComponent()
+      return configuration
     } catch let error {
       logger.error("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
       return nil
