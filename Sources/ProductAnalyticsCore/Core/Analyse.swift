@@ -144,8 +144,9 @@ extension Analyse {
       
       if let name: String = dict[self.keys.name] {
         //if name == "Level1.Level2A.Level2AStruct" {
-        if self.expected.contains(name) {
-          self.calls.insert(name)
+        let fullName = "AnalyticKeys.\(name)"
+        if self.expected.contains(fullName) {
+          self.calls.insert(fullName)
         }
       }
     }
