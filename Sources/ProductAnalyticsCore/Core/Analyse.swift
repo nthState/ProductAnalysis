@@ -58,6 +58,7 @@ class Analyse {
     }
     
     expected = extractKeys(analytics: analytics)
+    logger.log("Expected Keys: \(self.expected, privacy: .public)")
     
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
@@ -143,7 +144,7 @@ extension Analyse {
       }
       
       if let name: String = dict[self.keys.name] {
-        self.logger.log("Call: \(name, privacy: .public)")
+        self.logger.log("Call: \(name, privacy: .public), contained?: \(self.expected.contains(name), privacy: .public)")
         if self.expected.contains(name) {
           self.calls.insert(name)
         }
