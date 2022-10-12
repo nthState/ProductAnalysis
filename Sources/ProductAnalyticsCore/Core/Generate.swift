@@ -56,7 +56,7 @@ class Generate {
         str.append("enum \(subCategoryName) {\n")
         for child in subCategory.children {
           
-          str.append("public struct {{ child.name }}: Analyticable {\n")
+          str.append("public struct \(child.name): Analyticable {\n")
           
           str.append("let analyticsKey: String = \"\(child.value)\"\n")
           

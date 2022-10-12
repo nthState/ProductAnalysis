@@ -98,6 +98,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
   }
   
+  // TODO: Move this so it can be unit tested
   internal mutating func findConfiguration(projectDir: URL?) -> Configuration? {
     
     guard let projectDir else {
