@@ -60,6 +60,9 @@ class Analyse {
       findFeatures(inFile: file.absoluteString)
     }
     
+    // What have we found?
+    calls.forEach({ print("Found: \($0)") })
+    
     // We want only the calls that are not found:
     // https://www.programiz.com/swift-programming/sets
     let missing = Array(expected.subtracting(calls))
@@ -130,8 +133,6 @@ extension Analyse {
     logger.log("Response: \(response)")
     
     recurse(response: response)
-    
-    calls.forEach({ print("Found: \($0)") })
   }
   
   func recurse(response: SKResponseDictionary) {
