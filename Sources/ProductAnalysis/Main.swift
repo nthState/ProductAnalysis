@@ -21,14 +21,14 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Option(help: "JSON File Override")
   var jsonFilePath: String?
   
-  @Option(help: "Output Folder name")
+  @Option(help: "Folder name if you want the generated source code written somewhere other than `Analysis`")
   var folderName: String?
   
   @Option(help: "API Endpoint Override")
   var api: String?
   
-  @Option(help: "Optional Project Name")
-  var projectName: String?
+//  @Option(help: "Optional Project Name")
+//  var projectName: String?
   
   @Flag(help: "Enable Analysis")
   var enableAnalysis: Bool = false

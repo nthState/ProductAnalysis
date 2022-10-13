@@ -28,6 +28,8 @@ Add this Swift Package to your App:
 .package(url: "https://github.com/nthState/ProductAnalysis", branch: "main")
 ```
 
+### Use a Plist
+
 Add the following line to a `build phase script`:
 
 ```
@@ -56,6 +58,14 @@ Add a `ProductAnalysis.plist` to the root of your project
 </dict>
 </plist>
 
+```
+
+### Use command line arguments
+
+If you don't want to use a ProductAnalsis.plist file, you can pass arguments to `run` like so:
+
+```
+#${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --generate-source-code
 ```
 
 ## Running Tests
