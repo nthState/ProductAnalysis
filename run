@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "Starting Product Analytics Build"
 
-SRC="${BUILD_DIR%Build/*}/SourcePackages/checkouts/ProductAnalytics"
+SRC="${BUILD_DIR%Build/*}/SourcePackages/checkouts/ProductAnalysis"
 
 cd $SRC
 
@@ -9,4 +9,4 @@ cd $SRC
     -Xswiftc "-sdk" \
     -Xswiftc "`xcrun --sdk macosx --show-sdk-path`"
 
-/usr/bin/xcrun --sdk macosx swift run ProductAnalytics --output-folder "my test"
+/usr/bin/xcrun --sdk macosx swift run ProductAnalysis --output-folder "my test"

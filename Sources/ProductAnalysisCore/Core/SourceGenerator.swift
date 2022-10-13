@@ -7,17 +7,19 @@
 import Foundation
 import OSLog
 
-class Generate {
+class SourceGenerator {
   
-  static let swiftFileName = "Analytics.generated.swift"
+  static let swiftFileName = "Analysis.generated.swift"
   static let folderName = "Analysis"
+  static let mainKey = "AnalysisKeys"
+  static let protocolName = "Analyzable"
   
   private let logger = Logger(subsystem: subsystem, category: "Generate")
   
-  public func run(analytics: Analytics, with configuration: Configuration) async throws {
+  public func write(analytics: Analytics, with configuration: Configuration) async throws {
     
     let base: URL = configuration.projectDir
-    let folderName = configuration.folderName ?? Generate.folderName
+    let folderName = configuration.folderName ?? SourceGenerator.folderName
     let dst = base.appendingPathComponent(folderName)
     
     var isDirectory: ObjCBool = false
@@ -30,9 +32,7 @@ class Generate {
   }
   
   internal func generateSwift(root dst: URL, analytics: Analytics) {
-    let swift = dst.appendingPathComponent(Generate.swiftFileName)
-    
-    logger.log("In Generate: \(swift, privacy: .public)")
+    let swift = dst.appendingPathComponent(SourceGenerator.swiftFileName)
     
     let string = generate(with: analytics)
     
@@ -44,21 +44,21 @@ class Generate {
     var str = ""
     
     str.append("""
-    protocol Analyticable { \n
-         var analyticsKey: String { get } \n
+    protocol \(SourceGenerator.protocolName) { \n
+         var analysisKey: String { get } \n
     } \n
     """)
     
-    str.append("enum AnalyticKeys {\n")
+    str.append("enum \(SourceGenerator.mainKey) {\n")
     for (categoryName, category) in analytics.categories {
       str.append("enum \(categoryName) {\n")
       for (subCategoryName, subCategory) in category {
         str.append("enum \(subCategoryName) {\n")
         for child in subCategory.children {
           
-          str.append("public struct \(child.name): Analyticable {\n")
+          str.append("public struct \(child.name): \(SourceGenerator.protocolName) {\n")
           
-          str.append("let analyticsKey: String = \"\(child.value)\"\n")
+          str.append("let analysisKey: String = \"\(child.value)\"\n")
           
           // TODO: Properties
           

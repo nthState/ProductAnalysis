@@ -4,31 +4,31 @@
 import PackageDescription
 
 let package = Package(
-  name: "ProductAnalytics",
+  name: "ProductAnalysis",
   platforms: [
     .macOS(.v12),
     .iOS(.v15)
   ],
   products: [
     .library(
-      name: "ProductAnalyticsCore",
-      targets: ["ProductAnalyticsCore"]),
+      name: "ProductAnalysisCore",
+      targets: ["ProductAnalysisCore"]),
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0")
   ],
   targets: [
     .executableTarget(
-      name: "ProductAnalytics",
+      name: "ProductAnalysis",
       dependencies: [
-        "ProductAnalyticsCore",
+        "ProductAnalysisCore",
         .product(name: "ArgumentParser", package: "swift-argument-parser")
       ]),
-    .target(name: "ProductAnalyticsCore", dependencies: ["Csourcekitd"]),
+    .target(name: "ProductAnalysisCore", dependencies: ["Csourcekitd"]),
     .target(name: "Csourcekitd", dependencies: []),
     .testTarget(
-      name: "ProductAnalyticsCoreTests",
-      dependencies: ["ProductAnalyticsCore"],
+      name: "ProductAnalysisCoreTests",
+      dependencies: ["ProductAnalysisCore"],
       resources: [
         .copy("Resources")
       ])

@@ -5,9 +5,10 @@
 //
 
 import XCTest
-@testable import ProductAnalyticsCore
+@testable import ProductAnalysisCore
 
 final class AnalysisTests: XCTestCase {
+  
   // TODO: What can be done about the prefix of AnalyticKeys.
   func testAnalysis() async throws {
     
@@ -29,11 +30,12 @@ final class AnalysisTests: XCTestCase {
     ]])
     
     
-    let analysis = Analyse()
-    let results = try await analysis.run(analytics: analytics, with: configuration)
+    let analysis = Analysis()
+    var errorCode: Int = 0
+    let results = try await analysis.analyze(analytics: analytics, with: configuration, errorCode: &errorCode)
     
     let expected: [String] = [
-      "warning: AnalyticKeys.Level1.Level2B.Level2BStruct not implemented"
+      "warning: AnalysisKeys.Level1.Level2B.Level2BStruct not implemented"
     ]
     
     XCTAssertEqual(results, expected, "Analysis results should match")
@@ -58,12 +60,13 @@ final class AnalysisTests: XCTestCase {
     ]])
     
     
-    let analysis = Analyse()
-    let results = try await analysis.run(analytics: analytics, with: configuration)
+    let analysis = Analysis()
+    var errorCode: Int = 0
+    let results = try await analysis.analyze(analytics: analytics, with: configuration, errorCode: &errorCode)
     
     let expected: [String] = [
-      "warning: AnalyticKeys.Level1.Level2A.Level2AStruct not implemented", // TODO: Extract as a template string
-      "warning: AnalyticKeys.Level1.Level2B.Level2BStruct not implemented",
+      "warning: AnalysisKeys.Level1.Level2A.Level2AStruct not implemented", // TODO: Extract as a template string
+      "warning: AnalysisKeys.Level1.Level2B.Level2BStruct not implemented",
     ]
     
     XCTAssertEqual(results.sorted(), expected.sorted(), "Analysis results should match")

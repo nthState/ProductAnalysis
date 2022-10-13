@@ -6,9 +6,6 @@
 
 import Foundation
 
-/**
- Configuration object
- */
 public struct Configuration: Decodable {
   public let warningsAsErrors: Bool
   public let accessToken: String
@@ -21,7 +18,14 @@ public struct Configuration: Decodable {
   
   // MARK: - Constructor
   
-  public init(warningsAsErrors: Bool = false, accessToken: String = "", enableAnalysis: Bool = true, reportAnalysisResults: Bool = true, generateSourceCode: Bool = true, folderName: String? = nil, jsonURL: URL? = nil, projectDir: URL) {
+  public init(warningsAsErrors: Bool = false,
+              accessToken: String = "",
+              enableAnalysis: Bool = true,
+              reportAnalysisResults: Bool = true,
+              generateSourceCode: Bool = true,
+              folderName: String? = nil,
+              jsonURL: URL? = nil,
+              projectDir: URL) {
     self.warningsAsErrors = warningsAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis

@@ -8,18 +8,18 @@ import Foundation
 import OSLog
 import sourcekitd
 
-class Analyse {
+class Analysis {
   
   private let logger = Logger(subsystem: subsystem, category: "Analyse")
   
-  let sourceKit = SourceKit()
+  private let sourceKit = SourceKit()
   
-  let keys: sourcekitd_keys!
-  let requests: sourcekitd_requests!
-  let values: sourcekitd_values!
+  private let keys: sourcekitd_keys!
+  private let requests: sourcekitd_requests!
+  private let values: sourcekitd_values!
   
-  var calls = Set<String>()
-  var expected = Set<String>()
+  private var calls = Set<String>()
+  private var expected = Set<String>()
   
   init() {
     keys = sourceKit.keys!
@@ -47,10 +47,8 @@ class Analyse {
    if not found
    write to build log as either warning or error
    */
-  
-  func run(analytics: Analytics, with configuration: Configuration) async throws -> [String] {
-    logger.log("In Analyse")
-    
+  public func analyze(analytics: Analytics, with configuration: Configuration, errorCode: inout Int) async throws -> [String] {
+
     expected = extractKeys(analytics: analytics)
     logger.log("Expected Keys: \(self.expected, privacy: .public)")
     
@@ -71,6 +69,10 @@ class Analyse {
     // Generate messages
     let m = missing.map({ generate(message: "\($0) not implemented", warningsAsErrors: configuration.warningsAsErrors) })
     
+    errorCode = m.first { message in
+      message.starts(with: "error:")
+    }?.count ?? 0
+    
     // Write to build log
     m.forEach { message in
       print(message)
@@ -81,7 +83,7 @@ class Analyse {
   
 }
 
-extension Analyse {
+extension Analysis {
   
   internal func listFiles(in url: URL) -> [URL] {
     var files = [URL]()
@@ -103,14 +105,14 @@ extension Analyse {
   
 }
 
-extension Analyse {
+extension Analysis {
   
   internal func extractKeys(analytics: Analytics) -> Set<String> {
     var keys = Set<String>()
     for (categoryName, category) in analytics.categories {
       for (subCategoryName, subCategory) in category {
         for child in subCategory.children {
-          keys.insert("AnalyticKeys.\(categoryName).\(subCategoryName).\(child.name)")
+          keys.insert("\(SourceGenerator.mainKey).\(categoryName).\(subCategoryName).\(child.name)")
         }
       }
     }
@@ -119,23 +121,23 @@ extension Analyse {
   
 }
 
-extension Analyse {
+extension Analysis {
   
-  func findFeatures(inFile file: String) {
+  internal func findFeatures(inFile file: String) {
     let req = SKRequestDictionary(sourcekitd: sourceKit)
     
     req[keys.request] = requests.editor_open
     req[keys.name] = file
     req[keys.sourcefile] = file
     
-    logger.log("Request: \(req)")
+    logger.log("SourceKit Request: \(req)")
     let response = sourceKit.sendSync(req)
-    logger.log("Response: \(response)")
+    logger.log("SourceKit Response: \(response)")
     
     recurse(response: response)
   }
   
-  func recurse(response: SKResponseDictionary) {
+  internal func recurse(response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
       self.recurse(response: dict)
@@ -145,7 +147,7 @@ extension Analyse {
       }
       
       if let name: String = dict[self.keys.name] {
-        self.logger.log("Call: \(name, privacy: .public), contained?: \(self.expected.contains(name), privacy: .public)")
+        self.logger.log("Call: \(name, privacy: .public), contained in set: \(self.expected.contains(name), privacy: .public)")
         if self.expected.contains(name) {
           self.calls.insert(name)
         }
@@ -155,7 +157,7 @@ extension Analyse {
   
 }
 
-extension Analyse {
+extension Analysis {
   
   internal func generate(message: String, warningsAsErrors: Bool) -> String {
     let prefix = warningsAsErrors ? "error" : "warning"

@@ -1,4 +1,4 @@
-# ProductAnalytics
+# ProductAnalysis
 
 ---
 
@@ -25,16 +25,16 @@ Analyse what needs to be warned/errored
 Add this Swift Package to your App:
 
 ```
-.package(url: "https://github.com/nthState/ProductAnalytics", branch: "main")
+.package(url: "https://github.com/nthState/ProductAnalysis", branch: "main")
 ```
 
 Add the following line to a `build phase script`:
 
 ```
-${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalytics/run
+${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run
 ```
 
-Add a `ProductAnalytics.plist` to the root of your project
+Add a `ProductAnalysis.plist` to the root of your project
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -66,7 +66,7 @@ Then to get a code-coverage report
 
 ```
 /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
-  report ".build/x86_64-apple-macosx/debug/ProductAnalyticsPackageTests.xctest/Contents/MacOS/ProductAnalyticsPackageTests" \
+  report ".build/x86_64-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
   -instr-profile=".build/x86_64-apple-macosx/debug/codecov/default.profdata" \
   -use-color
 ```
@@ -78,7 +78,7 @@ Then to get a code-coverage report
 To view log events, open a new `Terminal` window and run:
 
 ```
-log stream --level debug --predicate 'subsystem == "com.productanalytics"'
+log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
 
 ---

@@ -4,7 +4,7 @@
 //  See LICENSE for license information.
 //
 
-import ProductAnalyticsCore
+import ProductAnalysisCore
 import ArgumentParser
 import Foundation
 import OSLog
@@ -43,7 +43,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   /**
    To enable log output, run the following command in a terminal window to stream the output
    
-   log stream --level debug --predicate 'subsystem == "com.productanalytics"'
+   log stream --level debug --predicate 'subsystem == "com.ProductAnalysis"'
    */
   lazy var logger: Logger = Logger(subsystem: subsystem, category: "Console")
   
@@ -53,7 +53,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   
   public mutating func run() async throws {
     
-    print("ProductAnalytics Starting")
+    print("ProductAnalysis Starting")
     
     let service = Service()
     let configuration = getConfiguration()
@@ -64,7 +64,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       logger.error("Run error: \(error.localizedDescription, privacy: .public)")
     }
     
-    print("ProductAnalytics Finished")
+    print("ProductAnalysis Finished")
     
     // TODO: If there was an "error: " we should exit 1
   }
@@ -74,11 +74,11 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   internal mutating func getConfiguration() -> Configuration {
     let configuration: Configuration
     if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
-      logger.info("Found ProductAnalytics.plist, using it for configuration")
+      logger.info("Found ProductAnalysis.plist, using it for configuration")
       configuration = configFromFile
     } else {
       
-      logger.log("No ProductAnalytics.plist found, reading options from command line, if any")
+      logger.log("No ProductAnalysis.plist found, reading options from command line, if any")
       
       guard let projectDir = urlToProjectDir() else {
         fatalError("$PROJECT_DIR not found, exiting")
@@ -108,12 +108,12 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       return nil
     }
     
-    guard let configurationURL = findFile(named: "ProductAnalytics.plist", at: projectDir) else {
-      logger.log("Can't find ProductAnalytics.plist")
+    guard let configurationURL = findFile(named: "ProductAnalysis.plist", at: projectDir) else {
+      logger.log("Can't find ProductAnalysis.plist")
       return nil
     }
     
-//    let configurationURL = projectDir.appendingPathComponent("ProductAnalytics.plist")
+//    let configurationURL = projectDir.appendingPathComponent("ProductAnalysis.plist")
 //    let configurationPath = configurationURL.absoluteString
 //
 //    logger.log("Looking for file at url: \(configurationURL, privacy: .public)")

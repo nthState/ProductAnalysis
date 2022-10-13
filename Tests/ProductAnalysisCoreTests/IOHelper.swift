@@ -7,7 +7,7 @@
 
 import Foundation
 
-func makeTempFolder(named: String) throws -> URL {
+internal func makeTempFolder(named: String) throws -> URL {
   
   let url = URL(string: NSTemporaryDirectory().appending(named))!
   

@@ -5,9 +5,9 @@
 //
 
 import XCTest
-@testable import ProductAnalyticsCore
+@testable import ProductAnalysisCore
 
-final class ProductAnalyticsCoreWriteTests: XCTestCase {
+final class ProductAnalysisCoreWriteTests: XCTestCase {
   
   func testWrite() async throws {
     
@@ -15,15 +15,15 @@ final class ProductAnalyticsCoreWriteTests: XCTestCase {
     
     let bundle = Bundle.module
     let url = bundle.url(forResource: "Resources/ExampleProductKeys", withExtension: "json")!
-    let calculate = Calculate()
+    let calculate = DataFetcher()
     let analytics = try await calculate.fetchAnalytics(url: url)
     
     let configuration = Configuration(projectDir: project)
     
-    let generate = Generate()
-    _ = try await generate.run(analytics: analytics, with: configuration)
+    let generate = SourceGenerator()
+    _ = try await generate.write(analytics: analytics, with: configuration)
     
-    let outPath = project.appendingPathComponent(Generate.folderName).appendingPathComponent(Generate.swiftFileName).absoluteString
+    let outPath = project.appendingPathComponent(SourceGenerator.folderName).appendingPathComponent(SourceGenerator.swiftFileName).absoluteString
     let exists = FileManager.default.fileExists(atPath: outPath)
     XCTAssertTrue(exists, "File should have been written")
     

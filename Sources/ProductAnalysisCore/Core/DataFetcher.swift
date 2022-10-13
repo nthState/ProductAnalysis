@@ -7,11 +7,11 @@
 import Foundation
 import OSLog
 
-class Calculate {
+class DataFetcher {
   
   private let logger = Logger(subsystem: subsystem, category: "Calculate")
   
-  func run(with configuration: Configuration) async throws -> Analytics {
+  func fetch(with configuration: Configuration) async throws -> Analytics {
     
     let url: URL
     if let overrideURL = configuration.jsonURL {
@@ -19,7 +19,7 @@ class Calculate {
       url = overrideURL
     } else {
       logger.log("Calling API to fetch JSON")
-      url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalytics/main/Tests/ProductAnalyticsCoreTests/Resources/ExampleProductKeys.json")!
+      url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalysis/main/Tests/ProductAnalysisCoreTests/Resources/ExampleProductKeys.json")!
     }
     
     return try await fetchAnalytics(url: url)
@@ -27,9 +27,9 @@ class Calculate {
   
 }
 
-extension Calculate {
+extension DataFetcher {
   
-  public func fetchAnalytics(url: URL) async throws -> Analytics {
+  internal func fetchAnalytics(url: URL) async throws -> Analytics {
     
     let result: Analytics
     do {
