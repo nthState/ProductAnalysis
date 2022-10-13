@@ -9,4 +9,4 @@ cd $SRC
     -Xswiftc "-sdk" \
     -Xswiftc "`xcrun --sdk macosx --show-sdk-path`"
 
-/usr/bin/xcrun --sdk macosx swift run ProductAnalysis --output-folder "my test"
+/usr/bin/xcrun --sdk macosx swift run ProductAnalysis "$@"
