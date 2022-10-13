@@ -21,8 +21,8 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Option(help: "JSON File Override")
   var jsonFilePath: String?
   
-  @Option(help: "Output Folder")
-  var outputFolder: String?
+  @Option(help: "Output Folder name")
+  var folderName: String?
   
   @Option(help: "API Endpoint Override")
   var api: String?
@@ -58,15 +58,16 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
     let service = Service()
     let configuration = getConfiguration()
     
+    let returnCode: Int
     do {
-      try await service.run(with: configuration)
+      returnCode = try await service.run(with: configuration)
     } catch let error {
       logger.error("Run error: \(error.localizedDescription, privacy: .public)")
     }
     
     print("ProductAnalysis Finished")
     
-    // TODO: If there was an "error: " we should exit 1
+    // TODO: If there was an "error: " we should exit 1 (returnCode) // or exit with error
   }
   
   // MARK: - Build Configuration
@@ -89,7 +90,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
                                     enableAnalysis: enableAnalysis,
                                     reportAnalysisResults: reportAnalysisResults,
                                     generateSourceCode: generateSourceCode,
-                                    folderName: nil,
+                                    folderName: folderName,
                                     jsonURL: URL(string: jsonFilePath ?? ""),
                                     projectDir: projectDir)
     }

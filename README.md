@@ -51,6 +51,8 @@ Add a `ProductAnalysis.plist` to the root of your project
   <true/>
   <key>generateSourceCode</key>
   <true/>
+  <key>folderName</key>
+  <string>Analysis</string>
 </dict>
 </plist>
 
