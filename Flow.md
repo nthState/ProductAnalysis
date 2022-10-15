@@ -1,15 +1,29 @@
 # Flow
 
-Here is a flow of the conversations. The left hand side is the "bad" case, the right "good" case.
+Here is a flow of the conversations. The first conversation is the "bad" flow, the second conversation is the "good" flow
 
-| product  | software engineer  | versus | product  | software engineer  |
-|---|---|---|---|---|
-| Hey Chris, Can you add these analytics to our App? Here's the requirements (Speech bubble) |   |   |  Hey Chris, Can you add these analytics to our App? Here's the requirements (Speech bubble) |   |
-|   | Sure, I'll get right on it (Speech bubble)  |   |   |  Sure, I'll get right on it (Speech bubble) |
-|    |  |  |   |   Compiler says you haven't implemented all Analytics (thinking) (thought bubble)  |
-|   ~~~ some time later ~~~  |  |  |   | |
-|   Hey, Chris, not all the requirements are coming through, did you implement them all? (angry) (Speech bubble) |  |  | Thanks Chris, we can see all the requirements (happy) (Speech bubble) |   |
-|   | oh no, I'll double check the code and make a fix (embarassed) (Speech bubble) |  |   | Smiling, no problem  (Speech bubble) |
+## First Conversation
+
+| product  | software engineer  |
+|---|---|
+|Hey Chris, Can you add these analytics to our App? Here's the requirements (Speech bubble) | |
+| |Sure, I'll get right on it (Speech bubble) |
+| ~~~ some time later ~~~ | |
+|Hey, Chris, not all the requirements are coming through, did you implement them all? (slightly angry) (Speech bubble) | |
+| | oh no, I'll double check the code and make a fix (embarassed) (Speech bubble) |
+
+## Second conversation
+
+| product  | software engineer  |
+|---|---|
+|  Hey Chris, Can you add these analytics to our App? Here's the requirements (Speech bubble) | |
+| | Sure, I'll get right on it (Speech bubble) |
+| | Compiler says you haven't implemented all Analytics (thinking) (thought bubble) |
+|~~~ some time later ~~~  | |
+|Thanks Chris, we can see all the requirements (happy) (Speech bubble) | |
+| | Smiling, no problem  (Speech bubble) |
+
+
 
 ## Requirements
 
