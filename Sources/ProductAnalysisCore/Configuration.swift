@@ -8,6 +8,7 @@ import Foundation
 
 public struct Configuration: Decodable {
   public let warningsAsErrors: Bool
+  public let duplicatesAsErrors: Bool
   public let accessToken: String
   public let enableAnalysis: Bool
   public let reportAnalysisResults: Bool
@@ -19,6 +20,7 @@ public struct Configuration: Decodable {
   // MARK: - Constructor
   
   public init(warningsAsErrors: Bool = false,
+              duplicatesAsErrors: Bool = false,
               accessToken: String = "",
               enableAnalysis: Bool = true,
               reportAnalysisResults: Bool = true,
@@ -27,6 +29,7 @@ public struct Configuration: Decodable {
               jsonURL: URL? = nil,
               projectDir: URL) {
     self.warningsAsErrors = warningsAsErrors
+    self.duplicatesAsErrors = duplicatesAsErrors
     self.accessToken = accessToken
     self.enableAnalysis = enableAnalysis
     self.reportAnalysisResults = reportAnalysisResults
@@ -40,6 +43,7 @@ public struct Configuration: Decodable {
   
   enum CodingKeys: CodingKey {
     case warningsAsErrors
+    case duplicatesAsErrors
     case accessToken
     case enableAnalysis
     case reportAnalysisResults
@@ -52,6 +56,7 @@ public struct Configuration: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.warningsAsErrors = try container.decode(Bool.self, forKey: .warningsAsErrors)
+    self.duplicatesAsErrors = try container.decode(Bool.self, forKey: .duplicatesAsErrors)
     self.accessToken = try container.decode(String.self, forKey: .accessToken)
     self.enableAnalysis = try container.decode(Bool.self, forKey: .enableAnalysis)
     self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
@@ -66,6 +71,7 @@ extension Configuration: CustomStringConvertible {
   public var description: String {
     return """
       warningsAsErrors: \(warningsAsErrors)
+      duplicatesAsErrors: \(duplicatesAsErrors)
       accessToken: \(accessToken)
       enableAnalysis: \(enableAnalysis)
       reportAnalysisResults: \(reportAnalysisResults)

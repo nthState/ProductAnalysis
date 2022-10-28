@@ -72,4 +72,35 @@ final class AnalysisTests: XCTestCase {
     XCTAssertEqual(results.sorted(), expected.sorted(), "Analysis results should match")
   }
   
+  func test_duplicated_keys() async throws {
+    
+    let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
+    
+    let bundle = Bundle.module
+    let url = bundle.url(forResource: "Resources/DuplicatedImplementation", withExtension: "txt")!
+    
+    try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
+    
+    let proj = URL(string: project.path)!
+    
+    let configuration = Configuration(duplicatesAsErrors: true, projectDir: proj)
+    
+    
+    let analytics = Analytics(categories: ["Level1" : [
+      "Level2A" : SubCategory(children: [Child(name: "Level2AStruct", value: "")]),
+      "Level2B" : SubCategory(children: [Child(name: "Level2BStruct", value: "")])
+    ]])
+    
+    
+    let analysis = Analysis()
+    var errorCode: Int = 0
+    let results = try await analysis.analyze(analytics: analytics, with: configuration, errorCode: &errorCode)
+    
+    let expected: [String] = [
+      "error: duplicated key, AnalysisKeys.Level1.Level2B.Level2AStruct"
+    ]
+    
+    XCTAssertEqual(results, expected, "Analysis results should match")
+  }
+  
 }

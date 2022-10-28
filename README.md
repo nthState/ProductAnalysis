@@ -93,6 +93,17 @@ To view log events, open a new `Terminal` window and run:
 log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
 
+
+---
+
+## Getting Started with Development
+
+To install dependencies run:
+
+```
+./scripts/new_developer.sh
+```
+
 ---
 
 ## Appendix

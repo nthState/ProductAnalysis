@@ -8,6 +8,20 @@ import Foundation
 import OSLog
 import sourcekitd
 
+struct Call {
+  let name: String
+  let file: String
+  let line: Int
+}
+
+extension Call: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(file)
+    hasher.combine(line)
+  }
+}
+
 class Analysis {
   
   private let logger = Logger(subsystem: subsystem, category: "Analyse")
@@ -19,6 +33,7 @@ class Analysis {
   private let values: sourcekitd_values!
   
   private var calls = Set<String>()
+  private var newCalls = Set<Call>()
   private var expected = Set<String>()
   
   init() {
@@ -46,6 +61,8 @@ class Analysis {
    log key found ok
    if not found
    write to build log as either warning or error
+   
+   - returns: List of messages for build results
    */
   public func analyze(analytics: Analytics, with configuration: Configuration, errorCode: inout Int) async throws -> [String] {
 
@@ -134,22 +151,26 @@ extension Analysis {
     let response = sourceKit.sendSync(req)
     logger.log("SourceKit Response: \(response)")
     
-    recurse(response: response)
+    recurse(file: file, response: response)
   }
   
-  internal func recurse(response: SKResponseDictionary) {
+  internal func recurse(file: String, response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
-      self.recurse(response: dict)
+      self.recurse(file: file, response: dict)
       
       guard kind?.uid == self.values.expr_call else {
         return
       }
       
-      if let name: String = dict[self.keys.name] {
+      if let name: String = dict[self.keys.name], let line: Int = dict[self.keys.offset] {
+
         self.logger.log("Call: \(name, privacy: .public), contained in set: \(self.expected.contains(name), privacy: .public)")
         if self.expected.contains(name) {
           self.calls.insert(name)
+          
+          self.newCalls.insert(Call(name: name, file: file, line: line))
+          
         }
       }
     }
