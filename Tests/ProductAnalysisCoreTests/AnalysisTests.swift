@@ -97,7 +97,8 @@ final class AnalysisTests: XCTestCase {
     let results = try await analysis.analyze(analytics: analytics, with: configuration, errorCode: &errorCode)
     
     let expected: [String] = [
-      "error: duplicated key, AnalysisKeys.Level1.Level2B.Level2AStruct"
+      "error: AnalysisKeys.Level1.Level2A.Level2AStruct duplicated in: [\"a.swift\"]",
+      "warning: AnalysisKeys.Level1.Level2B.Level2BStruct not implemented"
     ]
     
     XCTAssertEqual(results, expected, "Analysis results should match")

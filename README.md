@@ -112,3 +112,17 @@ Useful/interesting links
 
 - [ ] https://swiftrocks.com/code-generation-with-sourcekit
 - [ ] https://nshipster.com/swift-gyb/
+
+
+## Todo
+
+- [ ] Localisation
+- [ ] AnalysisReporter
+- [ ] Versioning - Send bundle version as a start
+- [ ] GitHub Action - Create Changelog
+- [ ] GitHub Action - Run Tests on push
+- [ ] Status Label
+- [ ] Add License
+- [ ] Add maintainers
+- [ ] Add Contributing
+- [ ] Signed Commits only
