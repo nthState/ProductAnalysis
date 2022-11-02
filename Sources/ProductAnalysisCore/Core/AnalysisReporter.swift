@@ -29,6 +29,8 @@ extension AnalysisReporter {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
+    let v = appVersion()
+    
     let result: String
     do {
       let (data, _) = try await URLSession.shared.data(for: request)
@@ -39,5 +41,13 @@ extension AnalysisReporter {
     }
     return result
   }
+}
+
+extension AnalysisReporter {
+  
+  internal func appVersion() -> String? {
+    Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+  }
+  
 }
 

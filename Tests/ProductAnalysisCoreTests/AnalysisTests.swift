@@ -15,7 +15,7 @@ final class AnalysisTests: XCTestCase {
     let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
     
     let bundle = Bundle.module
-    let url = bundle.url(forResource: "Resources/SemiImplemented", withExtension: "txt")!
+    let url = bundle.url(forResource: "Resources/SemiImplemented", withExtension: "swift")!
     
     try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
     
@@ -46,7 +46,7 @@ final class AnalysisTests: XCTestCase {
     let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
     
     let bundle = Bundle.module
-    let url = bundle.url(forResource: "Resources/DefinedNotUsed", withExtension: "txt")!
+    let url = bundle.url(forResource: "Resources/DefinedNotUsed", withExtension: "swift")!
     
     try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
     
@@ -77,7 +77,7 @@ final class AnalysisTests: XCTestCase {
     let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)
     
     let bundle = Bundle.module
-    let url = bundle.url(forResource: "Resources/DuplicatedImplementation", withExtension: "txt")!
+    let url = bundle.url(forResource: "Resources/DuplicatedImplementation", withExtension: "swift")!
     
     try FileManager.default.copyItem(at: url, to: project.appendingPathComponent("a.swift"))
     
@@ -102,6 +102,7 @@ final class AnalysisTests: XCTestCase {
     ]
     
     XCTAssertEqual(results, expected, "Analysis results should match")
+    XCTAssertEqual(errorCode, 1, "Program should have exited status code 1")
   }
   
 }

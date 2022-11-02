@@ -108,7 +108,7 @@ To install dependencies run:
 
 ## Appendix
 
-Useful/interesting links
+Useful/Interesting links
 
 - [ ] https://swiftrocks.com/code-generation-with-sourcekit
 - [ ] https://nshipster.com/swift-gyb/
@@ -126,3 +126,6 @@ Useful/interesting links
 - [ ] Add maintainers
 - [ ] Add Contributing
 - [ ] Signed Commits only
+- [ ] Return Code from CLI
+- [ ] Should we move Configuration to be an extension
+- [ ] Readme images

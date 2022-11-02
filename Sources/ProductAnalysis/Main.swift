@@ -8,6 +8,7 @@ import ProductAnalysisCore
 import ArgumentParser
 import Foundation
 import OSLog
+import Darwin
 
 @main
 public struct Main: ParsableCommand, AsyncParsableCommand{
@@ -18,14 +19,17 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
   @Flag(help: "Treat warnings as Errors")
   var warningsAsErrors = false
   
+  @Flag(help: "Treat duplicates as Errors")
+  var duplicatesAsErrors = false
+  
   @Option(help: "JSON File Override")
   var jsonFilePath: String?
   
   @Option(help: "Folder name if you want the generated source code written somewhere other than `Analysis`")
   var folderName: String?
   
-  @Option(help: "API Endpoint Override")
-  var api: String?
+//  @Option(help: "API Endpoint Override")
+//  var api: String?
   
 //  @Option(help: "Optional Project Name")
 //  var projectName: String?
@@ -86,6 +90,7 @@ public struct Main: ParsableCommand, AsyncParsableCommand{
       }
       
       configuration = Configuration(warningsAsErrors: warningsAsErrors,
+                                    duplicatesAsErrors: duplicatesAsErrors,
                                     accessToken: accessToken ?? "none_set",
                                     enableAnalysis: enableAnalysis,
                                     reportAnalysisResults: reportAnalysisResults,
