@@ -122,10 +122,8 @@ Useful/Interesting links
 - [ ] GitHub Action - Create Changelog
 - [ ] GitHub Action - Run Tests on push
 - [ ] Status Label
-- [ ] Add License
-- [ ] Add maintainers
-- [ ] Add Contributing
 - [ ] Signed Commits only
 - [ ] Return Code from CLI
 - [ ] Should we move Configuration to be an extension
 - [ ] Readme images
+- [ ] Publish Package

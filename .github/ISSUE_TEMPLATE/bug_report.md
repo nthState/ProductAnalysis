@@ -4,7 +4,6 @@ about: File a bug/issue
 title: '[Bug] - <title>'
 labels: Bug, Needs Triage
 assignees: ''
-
 ---
 
 # Title of issue

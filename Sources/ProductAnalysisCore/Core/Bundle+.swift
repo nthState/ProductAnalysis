@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>FILEHEADER</key>
-    <string>
-//  Copyright ___YEAR___ nthState Ltd. All Rights Reserved.
+//
+//  Copyright 2022 nthState Ltd. All Rights Reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,8 +13,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
-</string>
-    <key>ORGANIZATIONNAME</key>
-    <string>ACME</string>
-</dict>
-</plist>
+
+import Foundation
+
+extension Bundle {
+  
+  public var fullVersion: String? {
+    infoDictionary?["CFBundleVersion"] as? String
+  }
+  
+}

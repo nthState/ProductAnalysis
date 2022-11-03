@@ -20,6 +20,14 @@
 
 <!--Optional list of project specific tasks.-->
 
+## Definition of Done
+
+- [ ] Code Reviewed
+- [ ] Design Reviewed
+- [ ] Accessibility
+- [ ] Localized
+- [ ] Unit Tests Pass
+
 ## Screen shots 
 
 <!--Optional screen shots-->
