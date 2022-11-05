@@ -2,6 +2,8 @@ name: Unit Tests
 
 on:
   push:
+    branches:
+      - '**'
   
 concurrency:
   group: ${{ github.ref }}

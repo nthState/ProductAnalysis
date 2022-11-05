@@ -6,6 +6,8 @@ on:
       - '.github/workflows/ios_swiftlint.yml'
       - '.swiftlint.yml'
       - '**/*.swift'
+    branches:
+      - '**'
 
 jobs:
   SwiftLint:
@@ -22,7 +24,7 @@ jobs:
 
       - name: Lint
         run: |
-            FILES=$(git diff origin/main --name-only | grep ".*\.swift$")
+            FILES=$(git diff main --name-only | grep ".*\.swift$")
             if (( ${#FILES[@]} )); then
                 swiftlint --config .swiftlint.yml $FILES
             fi
