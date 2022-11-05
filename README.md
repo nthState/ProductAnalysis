@@ -1,5 +1,9 @@
 # ProductAnalysis
 
+[![Swift Lint](https://github.com/nthState/ProductAnalysis/actions/workflows/lint.yml/badge.svg)](https://github.com/nthState/ProductAnalysis/actions/workflows/lint.yml)
+[![Unit Tests](https://github.com/nthState/ProductAnalysis/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/nthState/ProductAnalysis/actions/workflows/unit_tests.yml)
+[![Update Changelog, Create Release](https://github.com/nthState/ProductAnalysis/actions/workflows/update_changelog_create_release.yml/badge.svg)](https://github.com/nthState/ProductAnalysis/actions/workflows/update_changelog_create_release.yml)
+
 ---
 
 ## Steps
