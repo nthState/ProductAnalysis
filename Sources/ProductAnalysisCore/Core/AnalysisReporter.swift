@@ -22,26 +22,26 @@ enum ProductAnalysisError: Error {
 }
 
 class AnalysisReporter {
-  
+
   private let logger = Logger(subsystem: subsystem, category: "AnalysisReporter")
 
 }
 
 extension AnalysisReporter {
-  
+
   @discardableResult
   public func report(results: [String], with configuration: Configuration) async throws -> String {
-    
+
     guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1") else {
       throw ProductAnalysisError.invalidURL
     }
-    
+
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    
+
     let v = Bundle.main.fullVersion
     let id = Bundle.main.bundleIdentifier
-    
+
     let result: String
     do {
       let (data, _) = try await URLSession.shared.data(for: request)
@@ -53,4 +53,3 @@ extension AnalysisReporter {
     return result
   }
 }
-

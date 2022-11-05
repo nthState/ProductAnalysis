@@ -26,9 +26,9 @@ public struct Configuration: Decodable {
   public let folderName: String?
   public let jsonURL: URL?
   public var projectDir: URL
-  
+
   // MARK: - Constructor
-  
+
   public init(warningsAsErrors: Bool = false,
               duplicatesAsErrors: Bool = false,
               accessToken: String = "",
@@ -48,9 +48,9 @@ public struct Configuration: Decodable {
     self.jsonURL = jsonURL
     self.projectDir = projectDir
   }
-  
+
   // MARK: - Decodable from PLIST
-  
+
   enum CodingKeys: CodingKey {
     case warningsAsErrors
     case duplicatesAsErrors
@@ -62,7 +62,7 @@ public struct Configuration: Decodable {
     case jsonURL
     case projectDir
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.warningsAsErrors = try container.decode(Bool.self, forKey: .warningsAsErrors)

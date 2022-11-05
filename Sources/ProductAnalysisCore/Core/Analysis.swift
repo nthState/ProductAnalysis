@@ -33,27 +33,27 @@ extension Call: Hashable {
 }
 
 class Analysis {
-  
+
   typealias BuildMessage = String
-  
+
   private let logger = Logger(subsystem: subsystem, category: "Analyse")
-  
+
   private let sourceKit = SourceKit()
-  
+
   private let keys: sourcekitd_keys!
   private let requests: sourcekitd_requests!
   private let values: sourcekitd_values!
-  
+
   private var calls = Set<String>()
   private var newCalls = Set<Call>()
   private var expected = Set<String>()
-  
+
   init() {
     keys = sourceKit.keys!
     requests = sourceKit.requests!
     values = sourceKit.values!
   }
-  
+
   //  key.substructure: [
   //    {
   //      key.kind: source.lang.swift.expr.call,
@@ -70,40 +70,40 @@ class Analysis {
 
     expected = extractKeys(analytics: analytics)
     logger.log("Expected Keys: \(self.expected, privacy: .public)")
-    
+
     let urls = listFiles(in: configuration.projectDir)
     for url in urls {
       logger.log("Analysing file at url: \(url)")
       findFeatures(inURL: url)
     }
-    
+
     let unImplemented = findUnImplemented(with: configuration)
     let duplicates = findDuplicates(with: configuration)
-  
+
     let allMessages = duplicates + unImplemented
-    
+
     // If there was an error, set errorCode
     errorCode = allMessages.allSatisfy({ $0.starts(with: "error:") }) ? 0 : 1
-    
+
     // Write to build log
     allMessages.forEach { print($0) }
-    
+
     return allMessages
   }
-  
+
 }
 
 extension Analysis {
-  
+
   func findUnImplemented(with configuration: Configuration) -> [BuildMessage] {
 
     let missing = Array(expected.subtracting(calls))
     logger.log("Missing Keys: \(missing, privacy: .public)")
-    
+
     // Generate messages
     return missing.map({ generate(message: "\($0) not implemented", warningsAsErrors: configuration.warningsAsErrors) })
   }
-  
+
   func findDuplicates(with configuration: Configuration) -> [BuildMessage] {
 
     let duplicate = Dictionary(grouping: newCalls, by: {$0.name}).filter { $1.count > 1 }.keys
@@ -111,25 +111,25 @@ extension Analysis {
       let found = newCalls.filter { call in
         call.name == name
       }
-      
+
       let usedIn = Set(found.map({ $0.url.lastPathComponent }))
-      
+
       return generate(message: "\(name) duplicated in: \(usedIn)", warningsAsErrors: configuration.duplicatesAsErrors)
     }
-    
+
     return d
   }
-  
+
 }
 
 extension Analysis {
-  
+
   internal func listFiles(in url: URL) -> [URL] {
     var files = [URL]()
     if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
       for case let fileURL as URL in enumerator {
         do {
-          let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
+          let fileAttributes = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
           if fileAttributes.isRegularFile! {
             guard let url = URL(string: fileURL.path) else {
               continue
@@ -141,11 +141,11 @@ extension Analysis {
     }
     return files
   }
-  
+
 }
 
 extension Analysis {
-  
+
   internal func extractKeys(analytics: Analytics) -> Set<String> {
     var keys = Set<String>()
     for (categoryName, category) in analytics.categories {
@@ -157,34 +157,34 @@ extension Analysis {
     }
     return keys
   }
-  
+
 }
 
 extension Analysis {
-  
+
   internal func findFeatures(inURL url: URL) {
     let req = SKRequestDictionary(sourcekitd: sourceKit)
-    
+
     req[keys.request] = requests.editor_open
     req[keys.name] = url.absoluteString
     req[keys.sourcefile] = url.absoluteString
-    
+
     logger.log("SourceKit Request: \(req)")
     let response = sourceKit.sendSync(req)
     logger.log("SourceKit Response: \(response)")
-    
+
     recurse(url: url, response: response)
   }
-  
+
   internal func recurse(url: URL, response: SKResponseDictionary) {
     response.recurse(uid: keys.substructure) { dict in
       let kind: SKUID? = dict[self.keys.kind]
       self.recurse(url: url, response: dict)
-      
+
       guard kind?.uid == self.values.expr_call else {
         return
       }
-      
+
       if let name: String = dict[self.keys.name],
           let offset: Int = dict[self.keys.offset] {
 
@@ -196,15 +196,14 @@ extension Analysis {
       }
     }
   }
-  
+
 }
 
 extension Analysis {
-  
+
   internal func generate(message: String, warningsAsErrors: Bool) -> BuildMessage {
     let prefix = warningsAsErrors ? "error" : "warning"
     return "\(prefix): \(message)"
   }
-  
-}
 
+}

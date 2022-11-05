@@ -12,7 +12,7 @@ let package = Package(
   products: [
     .library(
       name: "ProductAnalysisCore",
-      targets: ["ProductAnalysisCore"]),
+      targets: ["ProductAnalysisCore"])
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0")

@@ -18,11 +18,11 @@ import Foundation
 import OSLog
 
 class DataFetcher {
-  
+
   private let logger = Logger(subsystem: subsystem, category: "Calculate")
-  
+
   func fetch(with configuration: Configuration) async throws -> Analytics {
-    
+
     let url: URL
     if let overrideURL = configuration.jsonURL {
       logger.log("Using JSON override URL: \(overrideURL)")
@@ -31,19 +31,19 @@ class DataFetcher {
       logger.log("Calling API to fetch JSON")
       url = URL(string: "https://raw.githubusercontent.com/nthState/ProductAnalysis/main/Tests/ProductAnalysisCoreTests/Resources/ExampleProductKeys.json")!
     }
-    
+
     return try await fetchAnalytics(url: url)
   }
-  
+
 }
 
 extension DataFetcher {
-  
+
   internal func fetchAnalytics(url: URL) async throws -> Analytics {
-    
+
     let v = Bundle.main.fullVersion
     let id = Bundle.main.bundleIdentifier
-    
+
     let result: Analytics
     do {
       let (data, _) = try await URLSession.shared.data(from: url)
@@ -52,7 +52,7 @@ extension DataFetcher {
       logger.error("fetch Analytics error: \(error.localizedDescription, privacy: .public)")
       throw error
     }
-    
+
     return result
   }
 }

@@ -14,23 +14,23 @@
 //  limitations under the License.
 //
 
-import XCTest
 @testable import ProductAnalysisCore
+import XCTest
 
 final class ProductAnalysisCoreTests: XCTestCase {
-  
+
   func testDecode() async throws {
-    
+
     let bundle = Bundle.module
     let url = bundle.url(forResource: "Resources/ExampleProductKeys", withExtension: "json")!
-    
+
     let calculate = DataFetcher()
     do {
       _ = try await calculate.fetchAnalytics(url: url)
     } catch let error {
       XCTFail("Decode should have passed: \(error.localizedDescription)")
     }
-    
+
   }
-  
+
 }

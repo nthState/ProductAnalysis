@@ -17,14 +17,14 @@
 import Foundation
 
 protocol Analyzable {
-  
+
 }
 
 enum AnalysisKeys {
   enum Level1 {
     enum Level2A {
       struct Level2AStruct: Analyzable {
-        
+
       }
     }
     enum Level2B {
@@ -36,15 +36,15 @@ enum AnalysisKeys {
 }
 
 class SemiImplemented {
-  
+
   let key: AnalysisKeys.Level1.Level2A.Level2AStruct
-  
+
   func run() {
-    
+
   }
-  
+
   func execute(event: Analyticable) {
-    
+
   }
-  
+
 }

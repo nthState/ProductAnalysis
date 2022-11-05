@@ -17,9 +17,9 @@
 import Foundation
 
 extension Bundle {
-  
+
   public var fullVersion: String? {
     infoDictionary?["CFBundleVersion"] as? String
   }
-  
+
 }
