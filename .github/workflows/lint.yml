@@ -1,0 +1,22 @@
+name: Swift Lint
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ios_swiftlint.yml'
+      - '.swiftlint.yml'
+      - '**/*.swift'
+
+jobs:
+  SwiftLint:
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint
+        run: |
+            FILES=$(git diff origin/develop --name-only | grep ".*\.swift$")
+            swiftlint --config .swiftlint.yml $FILES
