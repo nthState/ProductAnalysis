@@ -84,7 +84,7 @@ Then to get a code-coverage report
 ARCH=$(uname -m)
 /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
   report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
-  -instr-profile=".build/x86_64-apple-macosx/debug/codecov/default.profdata" \
+  -instr-profile=".build/${ARCH}-apple-macosx/debug/codecov/default.profdata" \
   -use-color
 ```
 
