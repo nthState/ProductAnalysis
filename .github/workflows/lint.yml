@@ -23,4 +23,6 @@ jobs:
       - name: Lint
         run: |
             FILES=$(git diff origin/main --name-only | grep ".*\.swift$")
-            swiftlint --config .swiftlint.yml $FILES
+            if (( ${#FILES[@]} )); then
+                swiftlint --config .swiftlint.yml $FILES
+            fi
