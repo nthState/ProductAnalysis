@@ -123,9 +123,6 @@ Useful/Interesting links
 - [ ] Localisation
 - [ ] AnalysisReporter
 - [ ] Versioning - Send bundle version as a start
-- [ ] GitHub Action - Create Changelog
-- [ ] GitHub Action - Run Tests on push
-- [ ] Status Label
 - [ ] Signed Commits only
 - [ ] Return Code from CLI
 - [ ] Should we move Configuration to be an extension
