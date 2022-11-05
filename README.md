@@ -49,6 +49,8 @@ Add a `ProductAnalysis.plist` to the root of your project
 <dict>
   <key>warningsAsErrors</key>
   <false/>
+  <key>duplicatesAsErrors</key>
+  <false/>
   <key>enableAnalysis</key>
   <true/>
   <key>accessToken</key>
@@ -129,3 +131,4 @@ Useful/Interesting links
 - [ ] Should we move Configuration to be an extension
 - [ ] Readme images
 - [ ] Service Tests
+- [ ] Expand help on each configuration property
