@@ -39,8 +39,8 @@ extension AnalysisReporter {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
 
-    let v = Bundle.main.fullVersion
-    let id = Bundle.main.bundleIdentifier
+    let version = Bundle.main.fullVersion
+    let identifier = Bundle.main.bundleIdentifier
 
     let result: String
     do {

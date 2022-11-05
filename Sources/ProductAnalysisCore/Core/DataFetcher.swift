@@ -41,8 +41,8 @@ extension DataFetcher {
 
   internal func fetchAnalytics(url: URL) async throws -> Analytics {
 
-    let v = Bundle.main.fullVersion
-    let id = Bundle.main.bundleIdentifier
+    let version = Bundle.main.fullVersion
+    let identifier = Bundle.main.bundleIdentifier
 
     let result: Analytics
     do {

@@ -19,7 +19,6 @@ import XCTest
 
 final class AnalysisTests: XCTestCase {
 
-  // TODO: What can be done about the prefix of AnalyticKeys.
   func testAnalysis() async throws {
 
     let project = try URL(fileURLWithPath: makeTempFolder(named: UUID().uuidString).absoluteString)

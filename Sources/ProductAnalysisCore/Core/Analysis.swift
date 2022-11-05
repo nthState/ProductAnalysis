@@ -107,7 +107,7 @@ extension Analysis {
   func findDuplicates(with configuration: Configuration) -> [BuildMessage] {
 
     let duplicate = Dictionary(grouping: newCalls, by: {$0.name}).filter { $1.count > 1 }.keys
-    let d = duplicate.map { name in
+    let listOfDuplicates = duplicate.map { name in
       let found = newCalls.filter { call in
         call.name == name
       }
@@ -117,7 +117,7 @@ extension Analysis {
       return generate(message: "\(name) duplicated in: \(usedIn)", warningsAsErrors: configuration.duplicatesAsErrors)
     }
 
-    return d
+    return listOfDuplicates
   }
 
 }
