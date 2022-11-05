@@ -81,8 +81,9 @@ swift test --enable-code-coverage
 Then to get a code-coverage report
 
 ```
+ARCH=$(uname -m)
 /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
-  report ".build/x86_64-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
+  report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
   -instr-profile=".build/x86_64-apple-macosx/debug/codecov/default.profdata" \
   -use-color
 ```
@@ -127,4 +128,4 @@ Useful/Interesting links
 - [ ] Return Code from CLI
 - [ ] Should we move Configuration to be an extension
 - [ ] Readme images
-- [ ] Publish Package
+- [ ] Service Tests
