@@ -6,6 +6,8 @@ on:
       - '.github/workflows/lint.yml'
       - '.lint.yml'
       - '**/*.swift'
+    branches:
+      - '**'
 
 jobs:
   changedfiles:
