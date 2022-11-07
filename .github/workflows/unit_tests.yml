@@ -23,7 +23,7 @@ jobs:
         run: |
             swift test --enable-code-coverage
             
-      - name: Install Xcode Command line tools
+      - name: Install Xcode Command line tools (If required)
         run: |
             # who are you?
             whoami
@@ -47,5 +47,5 @@ jobs:
               report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
               -instr-profile=".build/${ARCH}-apple-macosx/debug/codecov/default.profdata" \
               -use-color \
-              --ignore-filename-regex=".build|Tests"
+              --ignore-filename-regex=".build|Tests|SourceKit"
       
