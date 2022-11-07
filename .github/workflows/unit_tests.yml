@@ -30,12 +30,15 @@ jobs:
             #check if Xcode package is installed
             #if installed it will display : /Applications/Xcode.app/Contents/Developer
             xcode-select -p
-            # install Xcode command line form terminal
-            xcode-select --install
-            #verify successfull installation
-            xcode-select -p
-            #verify if GCC is installed
-            gcc --version
+            # install Xcode command line tools if not installed
+            INSTALLED=$(xcode-select -p 1>/dev/null;echo $?)
+            f [[ $INSTALLED -ne 0 ]]; then
+                xcode-select --install
+                #verify successfull installation
+                xcode-select -p
+                #verify if GCC is installed
+                gcc --version
+            fi
         
       - name: Generate Coverage Report
         run: |
