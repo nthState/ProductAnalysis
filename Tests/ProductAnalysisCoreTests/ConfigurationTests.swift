@@ -20,7 +20,7 @@ import XCTest
 
 final class ConfigurationTests: XCTestCase {
   // This test is wrong, in the fact that we should test the CLI method
-  func emptyConfigurationDecodes() {
+  func testEmptyConfigurationDecodes() {
     
     let bundle = Bundle.module
     let configurationURL = bundle.url(forResource: "Resources/EmptyConfiguration", withExtension: "plist")!
