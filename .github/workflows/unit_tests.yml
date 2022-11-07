@@ -32,7 +32,7 @@ jobs:
             xcode-select -p
             # install Xcode command line tools if not installed
             INSTALLED=$(xcode-select -p 1>/dev/null;echo $?)
-            f [[ $INSTALLED -ne 0 ]]; then
+            if [[ $INSTALLED -ne 0 ]]; then
                 xcode-select --install
                 #verify successfull installation
                 xcode-select -p
