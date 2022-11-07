@@ -46,5 +46,6 @@ jobs:
             /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
               report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
               -instr-profile=".build/${ARCH}-apple-macosx/debug/codecov/default.profdata" \
-              -use-color
+              -use-color \
+              --ignore-filename-regex=".build|Tests"
       
