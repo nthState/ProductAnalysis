@@ -132,3 +132,4 @@ Useful/Interesting links
 - [ ] Readme images
 - [ ] Service Tests
 - [ ] Expand help on each configuration property
+- [ ] Configuration keys should have the same prefixes, `enable`

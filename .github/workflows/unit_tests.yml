@@ -9,7 +9,6 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
     
-  
 jobs:
   test:
     name: Unit Tests
@@ -23,5 +22,26 @@ jobs:
       - name: Run Unit Tests
         run: |
             swift test --enable-code-coverage
+            
+      - name: Install Xcode Command line tools
+        run: |
+            # who are you?
+            whoami
+            #check if Xcode package is installed
+            #if installed it will display : /Applications/Xcode.app/Contents/Developer
+            xcode-select -p
+            # install Xcode command line form terminal
+            xcode-select --install
+            #verify successfull installation
+            xcode-select -p
+            #verify if GCC is installed
+            gcc --version
         
+      - name: Generate Coverage Report
+        run: |
+            ARCH=$(uname -m)
+            /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
+              report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
+              -instr-profile=".build/${ARCH}-apple-macosx/debug/codecov/default.profdata" \
+              -use-color
       

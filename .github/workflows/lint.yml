@@ -44,3 +44,4 @@ jobs:
       - name: Lint
         run: |
             swiftlint ${{needs.changedfiles.outputs.ts}}
+            
