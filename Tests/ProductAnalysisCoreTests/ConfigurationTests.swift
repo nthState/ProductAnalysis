@@ -19,17 +19,15 @@
 import XCTest
 
 final class ConfigurationTests: XCTestCase {
+  
   // This test is wrong, in the fact that we should test the CLI method
-  func testEmptyConfigurationDecodes() {
+  func testEmptyConfigurationDecodes() throws {
     
     let bundle = Bundle.module
     let configurationURL = bundle.url(forResource: "Resources/EmptyConfiguration", withExtension: "plist")!
     
-    guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
-      XCTFail()
-      return
-    }
-
+    let data = try Data(contentsOf: configurationURL)
+    
     let decoder = PropertyListDecoder()
     do {
       _ = try decoder.decode(Configuration.self, from: data)

@@ -65,15 +65,15 @@ public struct Configuration: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    self.warningsAsErrors = try container.decode(Bool.self, forKey: .warningsAsErrors)
-    self.duplicatesAsErrors = try container.decode(Bool.self, forKey: .duplicatesAsErrors)
-    self.accessToken = try container.decode(String.self, forKey: .accessToken)
-    self.enableAnalysis = try container.decode(Bool.self, forKey: .enableAnalysis)
-    self.reportAnalysisResults = try container.decode(Bool.self, forKey: .reportAnalysisResults)
-    self.generateSourceCode = try container.decode(Bool.self, forKey: .generateSourceCode)
+    self.warningsAsErrors = try container.decodeIfPresent(Bool.self, forKey: .warningsAsErrors) ?? false
+    self.duplicatesAsErrors = try container.decodeIfPresent(Bool.self, forKey: .duplicatesAsErrors) ?? false
+    self.accessToken = try container.decodeIfPresent(String.self, forKey: .accessToken) ?? "none_set"
+    self.enableAnalysis = try container.decodeIfPresent(Bool.self, forKey: .enableAnalysis) ?? true
+    self.reportAnalysisResults = try container.decodeIfPresent(Bool.self, forKey: .reportAnalysisResults) ?? true
+    self.generateSourceCode = try container.decodeIfPresent(Bool.self, forKey: .generateSourceCode) ?? true
     self.folderName = try container.decodeIfPresent(String.self, forKey: .folderName)
     self.jsonURL = try container.decodeIfPresent(URL.self, forKey: .jsonURL)
-    self.projectDir = URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")!
+    self.projectDir = URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "none_set")!
   }
 }
 
