@@ -171,7 +171,9 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
               return url
             }
           }
-        } catch { print(error, fileURL) }
+        } catch {
+          //self.logger.log("\(error, privacy: .public) \(fileURL)")
+        }
       }
     }
     return nil
