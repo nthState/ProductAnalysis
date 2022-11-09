@@ -113,6 +113,25 @@ To install dependencies run:
 
 ---
 
+## Creating a Release
+
+To create a release, you need to add a tag, and push it.
+GitHub Actions handle the rest.
+
+
+```
+git tag vx.x.x
+```
+
+Then push
+
+```
+git push origin vx.x.x   
+```
+
+
+---
+
 ## Appendix
 
 Useful/Interesting links
