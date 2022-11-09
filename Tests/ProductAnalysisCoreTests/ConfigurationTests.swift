@@ -32,7 +32,7 @@ final class ConfigurationTests: XCTestCase {
     do {
       _ = try decoder.decode(Configuration.self, from: data)
     } catch {
-      XCTFail()
+      XCTFail("Shouldn't get here")
     }
     
   }
