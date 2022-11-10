@@ -14,27 +14,26 @@
 //  limitations under the License.
 //
 
-
 @testable import ProductAnalysisCore
 import XCTest
 
 final class ConfigurationTests: XCTestCase {
-  
+
   func testEmptyConfigurationDecodes() throws {
-    
+
     let bundle = Bundle.module
     let configurationURL = bundle.url(forResource: "Resources/EmptyConfiguration", withExtension: "plist")!
-    
+
     let configuration = Configuration(url: configurationURL)
-    
+
     XCTAssertNotNil(configuration, "Configuration should not be nil")
   }
-  
+
   func testNoConfigurationFailsToDecode() throws {
-    
+
     let configuration = Configuration(url: nil)
-    
+
     XCTAssertNil(configuration, "Configuration should not be nil")
   }
-  
+
 }

@@ -27,7 +27,7 @@ public struct Configuration: Decodable {
   public let folderName: String?
   public let jsonURL: URL?
   public var projectDir: URL
-  
+
   private static var logger: Logger = Logger(subsystem: subsystem, category: "Configuration")
 
   // MARK: - Constructor
@@ -51,9 +51,9 @@ public struct Configuration: Decodable {
     self.jsonURL = jsonURL
     self.projectDir = projectDir
   }
-  
+
   public init?(url projectDir: URL?) {
-    
+
     guard let projectDir else {
       Configuration.logger.log("Xcode environment variable $PROJECT_DIR is nil")
       return nil
@@ -70,7 +70,7 @@ public struct Configuration: Decodable {
       configurationURL = projectDir
     }
 
-    //guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
+    // guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
     guard let data = try? Data(contentsOf: configurationURL) else {
       Configuration.logger.log("Can't get data of: \(configurationURL, privacy: .public)")
       return nil

@@ -22,7 +22,7 @@ import ProductAnalysisCore
 @main
 public struct CLI: AsyncParsableCommand {
 
-  @Option(help: "Access Token")
+  @Option(help: "Access Token used by API")
   var accessToken: String?
 
   @Flag(help: "Treat warnings as Errors")
@@ -31,7 +31,7 @@ public struct CLI: AsyncParsableCommand {
   @Flag(help: "Treat duplicates as Errors")
   var duplicatesAsErrors = false
 
-  @Option(help: "JSON File Override")
+  @Option(help: "Optional JSON file path to use instead of API")
   var jsonFilePath: String?
 
   @Option(help: "Folder name if you want the generated source code written somewhere other than `Analysis`")
@@ -40,16 +40,13 @@ public struct CLI: AsyncParsableCommand {
 //  @Option(help: "API Endpoint Override")
 //  var api: String?
 
-//  @Option(help: "Optional Project Name")
-//  var projectName: String?
-
-  @Flag(help: "Enable Analysis")
+  @Flag(help: "Enable Analysis of Source code")
   var enableAnalysis: Bool = false
 
-  @Flag(help: "Report Analysis Results")
+  @Flag(help: "Enable sending Analysis Results")
   var enableReportAnalysisResults: Bool = false
 
-  @Flag(help: "Generate Source Code")
+  @Flag(help: "Enable writing Source Code")
   var enableGenerateSourceCode: Bool = false
 
   /**
@@ -87,7 +84,7 @@ public struct CLI: AsyncParsableCommand {
   // MARK: - Build Configuration
 
   internal mutating func getConfiguration() -> Configuration {
-    
+
     let configuration: Configuration
     if let configFromFile = Configuration(url: urlToProjectDir()) {
       logger.info("Found ProductAnalysis.plist, using it for configuration")

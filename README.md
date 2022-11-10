@@ -146,9 +146,5 @@ Useful/Interesting links
 - [ ] AnalysisReporter
 - [ ] Versioning - Send bundle version as a start
 - [ ] Signed Commits only
-- [ ] Return Code from CLI
-- [ ] Should we move Configuration to be an extension
 - [ ] Readme images
 - [ ] Service Tests
-- [ ] Expand help on each configuration property
-- [ ] Configuration keys should have the same prefixes, `enable`
