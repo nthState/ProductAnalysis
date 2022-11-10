@@ -6,6 +6,10 @@
 
 ---
 
+![Introduction](assets/Intro.svg)
+
+---
+
 ## Steps
 
 ### Calculate
