@@ -20,21 +20,21 @@ import XCTest
 
 final class ConfigurationTests: XCTestCase {
   
-  // This test is wrong, in the fact that we should test the CLI method
   func testEmptyConfigurationDecodes() throws {
     
     let bundle = Bundle.module
     let configurationURL = bundle.url(forResource: "Resources/EmptyConfiguration", withExtension: "plist")!
     
-    let data = try Data(contentsOf: configurationURL)
+    let configuration = Configuration(url: configurationURL)
     
-    let decoder = PropertyListDecoder()
-    do {
-      _ = try decoder.decode(Configuration.self, from: data)
-    } catch {
-      XCTFail("Shouldn't get here")
-    }
+    XCTAssertNotNil(configuration, "Configuration should not be nil")
+  }
+  
+  func testNoConfigurationFailsToDecode() throws {
     
+    let configuration = Configuration(url: nil)
+    
+    XCTAssertNil(configuration, "Configuration should not be nil")
   }
   
 }

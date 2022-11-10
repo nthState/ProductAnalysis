@@ -20,7 +20,7 @@ import OSLog
 import ProductAnalysisCore
 
 @main
-public struct CLI: ParsableCommand, AsyncParsableCommand {
+public struct CLI: AsyncParsableCommand {
 
   @Option(help: "Access Token")
   var accessToken: String?
@@ -47,10 +47,10 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
   var enableAnalysis: Bool = false
 
   @Flag(help: "Report Analysis Results")
-  var reportAnalysisResults: Bool = false
+  var enableReportAnalysisResults: Bool = false
 
   @Flag(help: "Generate Source Code")
-  var generateSourceCode: Bool = false
+  var enableGenerateSourceCode: Bool = false
 
   /**
    To enable log output, run the following command in a terminal window to stream the output
@@ -70,7 +70,7 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
     let service = Service()
     let configuration = getConfiguration()
 
-    let returnCode: Int
+    var returnCode: Int32 = 0
     do {
       returnCode = try await service.run(with: configuration)
     } catch let error {
@@ -79,14 +79,17 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
 
     print("ProductAnalysis Finished")
 
-    // TODO: If there was an "error: " we should exit 1 (returnCode) // or exit with error
+    if returnCode != 0 {
+      throw ExitCode(returnCode)
+    }
   }
 
   // MARK: - Build Configuration
 
   internal mutating func getConfiguration() -> Configuration {
+    
     let configuration: Configuration
-    if let configFromFile = findConfiguration(projectDir: urlToProjectDir()) {
+    if let configFromFile = Configuration(url: urlToProjectDir()) {
       logger.info("Found ProductAnalysis.plist, using it for configuration")
       configuration = configFromFile
     } else {
@@ -101,8 +104,8 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
                                     duplicatesAsErrors: duplicatesAsErrors,
                                     accessToken: accessToken ?? "none_set",
                                     enableAnalysis: enableAnalysis,
-                                    reportAnalysisResults: reportAnalysisResults,
-                                    generateSourceCode: generateSourceCode,
+                                    enableReportAnalysisResults: enableReportAnalysisResults,
+                                    enableGenerateSourceCode: enableGenerateSourceCode,
                                     folderName: folderName,
                                     jsonURL: URL(string: jsonFilePath ?? ""),
                                     projectDir: projectDir)
@@ -114,68 +117,4 @@ public struct CLI: ParsableCommand, AsyncParsableCommand {
     URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
   }
 
-  // TODO: Move this so it can be unit tested
-  internal mutating func findConfiguration(projectDir: URL?) -> Configuration? {
-
-    guard let projectDir else {
-      logger.log("Xcode environment variable $PROJECT_DIR is nil")
-      return nil
-    }
-
-    guard let configurationURL = findFile(named: "ProductAnalysis.plist", at: projectDir) else {
-      logger.log("Can't find ProductAnalysis.plist")
-      return nil
-    }
-
-//    let configurationURL = projectDir.appendingPathComponent("ProductAnalysis.plist")
-//    let configurationPath = configurationURL.absoluteString
-//
-//    logger.log("Looking for file at url: \(configurationURL, privacy: .public)")
-//
-//    guard FileManager.default.fileExists(atPath: configurationPath) else {
-//      logger.log("Can't find url: \(configurationURL, privacy: .public)")
-//      return nil
-//    }
-//
-//    guard FileManager.default.isReadableFile(atPath: configurationPath) else {
-//      logger.log("File not readable: \(configurationURL, privacy: .public)")
-//      return nil
-//    }
-
-    guard let data = FileManager.default.contents(atPath: configurationURL.absoluteString) else {
-      logger.log("Can't get data of: \(configurationURL, privacy: .public)")
-      return nil
-    }
-
-    let decoder = PropertyListDecoder()
-    do {
-      var configuration = try decoder.decode(Configuration.self, from: data)
-      configuration.projectDir = configurationURL.deletingLastPathComponent()
-      return configuration
-    } catch let error {
-      logger.error("Unable to decode Plist: \(error.localizedDescription, privacy: .public)")
-      return nil
-    }
-  }
-
-  internal func findFile(named: String, at url: URL) -> URL? {
-    if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
-      for case let fileURL as URL in enumerator {
-        do {
-          let fileAttributes = try fileURL.resourceValues(forKeys: [.isRegularFileKey])
-          if fileAttributes.isRegularFile! {
-            guard let url = URL(string: fileURL.path) else {
-              continue
-            }
-            if url.lastPathComponent == named {
-              return url
-            }
-          }
-        } catch {
-          //self.logger.log("\(error, privacy: .public) \(fileURL)")
-        }
-      }
-    }
-    return nil
-  }
 }

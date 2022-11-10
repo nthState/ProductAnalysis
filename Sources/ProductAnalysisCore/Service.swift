@@ -27,13 +27,13 @@ public class Service {
 
   }
 
-  public func run(with configuration: Configuration) async throws -> Int {
+  public func run(with configuration: Configuration) async throws -> Int32 {
     logger.log("Running with configuration: \(configuration, privacy: .public)")
 
     let calculate = DataFetcher() // Should be named something to do with fetching
     let analytics = try await calculate.fetch(with: configuration)
 
-    if configuration.generateSourceCode {
+    if configuration.enableGenerateSourceCode {
       let generate = SourceGenerator()
       try await generate.write(analytics: analytics, with: configuration)
     }
@@ -48,7 +48,7 @@ public class Service {
         return 1
       }
 
-      if configuration.reportAnalysisResults {
+      if configuration.enableReportAnalysisResults {
 
         let analysisReporter = AnalysisReporter()
 
