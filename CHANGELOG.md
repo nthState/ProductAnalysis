@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.4] - 2022-11-10
+### :bug: Bug Fixes
+- [`d93d980`](https://github.com/nthState/ProductAnalysis/commit/d93d98084ffc4f567af41bacc1d5cd16e5268aad) - Add help notes *(commit by [@nthState](https://github.com/nthState))*
+
+### :recycle: Refactors
+- [`ce8adbc`](https://github.com/nthState/ProductAnalysis/commit/ce8adbc72125b0345ca9449201bccf6905b3adbf) - Move CLI Configuration setup to  Configuration(url) *(commit by [@nthState](https://github.com/nthState))*
+
+### :construction_worker: Build System
+- [`8094077`](https://github.com/nthState/ProductAnalysis/commit/8094077ac6ff08d92591bab1f39c01a9d95ce991) - no excluded types *(commit by [@nthState](https://github.com/nthState))*
+
+### :memo: Documentation Changes
+- [`73c8c9b`](https://github.com/nthState/ProductAnalysis/commit/73c8c9b441c5954f5ca8b3e885d25ef36435df99) - update CHANGELOG.md for v0.0.3 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
+
+
 ## [v0.0.3] - 2022-11-09
 ### :bug: Bug Fixes
 - [`74b951d`](https://github.com/nthState/ProductAnalysis/commit/74b951dc83b3e5071f91d4100358adfbe597d596) - Example fix to test changelog *(PR [#2](https://github.com/nthState/ProductAnalysis/pull/2) by [@nthState](https://github.com/nthState))*
@@ -40,3 +54,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [v0.0.1]: https://github.com/nthState/ProductAnalysis/compare/v0.0.0...v0.0.1
 [v0.0.3]: https://github.com/nthState/ProductAnalysis/compare/v0.0.2...v0.0.3
+[v0.0.4]: https://github.com/nthState/ProductAnalysis/compare/v0.0.3...v0.0.4
