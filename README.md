@@ -152,3 +152,7 @@ Useful/Interesting links
 - [ ] Signed Commits only
 - [ ] Readme images
 - [ ] Service Tests
+- [ ] Check for bad words
+- [ ] Check PR Titles
+
+simply a test

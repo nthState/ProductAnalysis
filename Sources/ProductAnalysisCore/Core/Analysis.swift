@@ -27,6 +27,9 @@ struct Call {
   let offset: Int
 }
 
+/**
+ Calls can be in multiple places
+ */
 extension Call: Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(name)
