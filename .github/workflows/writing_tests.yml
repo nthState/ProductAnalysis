@@ -1,0 +1,29 @@
+name: Writing Tests
+
+on:
+  push:
+    branches:
+      - '**'
+  
+concurrency:
+  group: "${{ github.ref }}_writing"
+  cancel-in-progress: true
+    
+jobs:
+  test:
+    name: Check Copy
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Run Unit Tests
+        uses: nthState/BadWords@main
+        with:
+          src: './'
+          words: 'simply, simple, easily, obviously, obvious, he, she, just, blacklist, whitelist, master, slave'
+          fileTypeFilter: '.md'
+            
+      
