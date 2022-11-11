@@ -18,6 +18,9 @@ import Foundation
 import OSLog
 import sourcekitd
 
+/**
+ Represents a single point in code where a call is made
+ */
 struct Call {
   let name: String
   let url: URL
