@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.6] - 2022-11-12
+### :construction_worker: Build System
+- [`36cf785`](https://github.com/nthState/ProductAnalysis/commit/36cf785d06131a6c9c3ff8830004d917759ce104) - Add writing tests *(commit by [@nthState](https://github.com/nthState))*
+
+### :memo: Documentation Changes
+- [`5af4c35`](https://github.com/nthState/ProductAnalysis/commit/5af4c35beb46b27df5ebf762789e89b7a5f2bb8f) - update CHANGELOG.md for v0.0.5 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
+
+
 ## [v0.0.5] - 2022-11-11
 ### :memo: Documentation Changes
 - [`a25414e`](https://github.com/nthState/ProductAnalysis/commit/a25414e5ba3c76662397300e9209b298feb23eee) - update CHANGELOG.md for v0.0.4 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
@@ -62,3 +70,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.3]: https://github.com/nthState/ProductAnalysis/compare/v0.0.2...v0.0.3
 [v0.0.4]: https://github.com/nthState/ProductAnalysis/compare/v0.0.3...v0.0.4
 [v0.0.5]: https://github.com/nthState/ProductAnalysis/compare/v0.0.4...v0.0.5
+[v0.0.6]: https://github.com/nthState/ProductAnalysis/compare/v0.0.5...v0.0.6
