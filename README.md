@@ -10,21 +10,9 @@
 
 ---
 
-## Steps
+## Introduction
 
-### Calculate
-
-Download the JSON file, calculate what we should generate
-
-### Generate
-
-Take the output from the calculate step, and write the files
-
-### Analyse
-
-Based on the output from the calcuate step, and the source code on disk
-Analyse what needs to be warned/errored
-
+A compile-time check to see if you've implemented everything required by the product team.
 
 ---
 
@@ -36,13 +24,15 @@ Add this Swift Package to your App:
 .package(url: "https://github.com/nthState/ProductAnalysis", branch: "main")
 ```
 
-### Use a Plist
+### Add Build Phase
 
 Add the following line to a `build phase script`:
 
 ```
 ${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run
 ```
+
+### Use a Plist
 
 Add a `ProductAnalysis.plist` to the root of your project
 
@@ -59,9 +49,9 @@ Add a `ProductAnalysis.plist` to the root of your project
   <true/>
   <key>accessToken</key>
   <string>my_token</string>
-  <key>reportAnalysisResults</key>
+  <key>enableReportAnalysisResults</key>
   <true/>
-  <key>generateSourceCode</key>
+  <key>enableGenerateSourceCode</key>
   <true/>
   <key>folderName</key>
   <string>Analysis</string>
@@ -72,19 +62,35 @@ Add a `ProductAnalysis.plist` to the root of your project
 
 ### Use command line arguments
 
-If you don't want to use a ProductAnalsis.plist file, you can pass arguments to `run` like so:
+If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments to `run` like so:
 
 ```
-#${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --generate-source-code
+#${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --enable-generate-source-code
 ```
 
-## Running Tests
+---
+
+## Development
+
+---
+
+### Getting Started with Development
+
+To install dependencies run:
+
+```
+./scripts/new_developer.sh
+```
+
+### Running Tests
+
+If you want to run unit tests, use the following script, this is also ran as a GitHub Action
 
 ```
 swift test --enable-code-coverage
 ```
 
-Then to get a code-coverage report
+Then to get a code-coverage report (GitHub Action reports this too)
 
 ```
 ARCH=$(uname -m)
@@ -104,20 +110,11 @@ To view log events, open a new `Terminal` window and run:
 log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
 
-
 ---
 
-## Getting Started with Development
+## Deployment
 
-To install dependencies run:
-
-```
-./scripts/new_developer.sh
-```
-
----
-
-## Creating a Release
+### Creating a Release
 
 To create a release, you need to add a tag, and push it.
 GitHub Actions handle the rest.
