@@ -150,5 +150,4 @@ Useful/Interesting links
 - [ ] AnalysisReporter
 - [ ] Versioning - Send bundle version as a start
 - [ ] Signed Commits only
-- [ ] Readme images
 - [ ] Service Tests
