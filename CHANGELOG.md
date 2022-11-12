@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.10] - 2022-11-12
+### :construction_worker: Build System
+- [`c23a76e`](https://github.com/nthState/ProductAnalysis/commit/c23a76edbf321ad1bc18be0a0f67ce6ecae3a696) - Workflow Cleanup Test PR with bad name *(PR [#8](https://github.com/nthState/ProductAnalysis/pull/8) by [@nthState](https://github.com/nthState))*
+
+### :memo: Documentation Changes
+- [`f9d5ed0`](https://github.com/nthState/ProductAnalysis/commit/f9d5ed095231a8753963d90c150c469865daa545) - update CHANGELOG.md for v0.0.9 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
+
+
 ## [v0.0.9] - 2022-11-12
 ### :construction_worker: Build System
 - [`72a38a6`](https://github.com/nthState/ProductAnalysis/commit/72a38a6dd16bbea3a5a2cdbc601709b320cef3b4) - Testing different commit messages *(PR [#7](https://github.com/nthState/ProductAnalysis/pull/7) by [@nthState](https://github.com/nthState))*
@@ -95,3 +103,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.7]: https://github.com/nthState/ProductAnalysis/compare/v0.0.6...v0.0.7
 [v0.0.8]: https://github.com/nthState/ProductAnalysis/compare/v0.0.7...v0.0.8
 [v0.0.9]: https://github.com/nthState/ProductAnalysis/compare/v0.0.8...v0.0.9
+[v0.0.10]: https://github.com/nthState/ProductAnalysis/compare/v0.0.9...v0.0.10
