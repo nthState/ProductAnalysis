@@ -26,4 +26,3 @@ jobs:
           exclude_words: 'simply, simple, easily, obviously, obvious, he, she, just, blacklist, whitelist, master, slave'
           file_types: '.md'
             
-      
