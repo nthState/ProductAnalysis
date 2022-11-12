@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.8] - 2022-11-12
+### :memo: Documentation Changes
+- [`e123715`](https://github.com/nthState/ProductAnalysis/commit/e123715a84def2b236c4c9265c00868b01e85499) - update CHANGELOG.md for v0.0.7 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
+
+
 ## [v0.0.7] - 2022-11-12
 ### :construction_worker: Build System
 - [`ade5499`](https://github.com/nthState/ProductAnalysis/commit/ade549980a4f57ebfd65bcfbcb8803a68038a17e) - Add space to test *(PR [#5](https://github.com/nthState/ProductAnalysis/pull/5) by [@nthState](https://github.com/nthState))*
@@ -80,3 +85,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.5]: https://github.com/nthState/ProductAnalysis/compare/v0.0.4...v0.0.5
 [v0.0.6]: https://github.com/nthState/ProductAnalysis/compare/v0.0.5...v0.0.6
 [v0.0.7]: https://github.com/nthState/ProductAnalysis/compare/v0.0.6...v0.0.7
+[v0.0.8]: https://github.com/nthState/ProductAnalysis/compare/v0.0.7...v0.0.8
