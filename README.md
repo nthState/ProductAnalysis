@@ -14,15 +14,15 @@ A compile-time check to see if you've implemented everything required by the pro
 
 Add this Swift Package to your App:
 
-```
+```swift
 .package(url: "https://github.com/nthState/ProductAnalysis", branch: "main")
 ```
 
 ### Add Build Phase
 
-Add the following line to a `build phase script`:
+Add the following line to a `Build Phase Script`:
 
-```
+```bash
 ${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run
 ```
 
@@ -56,7 +56,7 @@ Add a `ProductAnalysis.plist` to the root of your project
 
 ### Use command line arguments
 
-If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments to `run` like so:
+If you don't want to use a `ProductAnalysis.plist` file, you can pass arguments to `run` like so:
 
 ```bash
 #${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --enable-generate-source-code
@@ -66,7 +66,7 @@ If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments t
 
 ### Getting Started with Development
 
-To install dependencies run:
+To install dependencies run the following script, it installs Xcode Command line tools, Commitizen, Pre commit & Swiftlint
 
 ```bash
 ./scripts/new_developer.sh
@@ -122,12 +122,12 @@ git push origin vx.x.x
 Useful/Interesting links
 
 - [ ] https://swiftrocks.com/code-generation-with-sourcekit
-- [ ] https://nshipster.com/swift-gyb/
 
 ## Todo
 
 - [ ] Localisation
 - [ ] AnalysisReporter
 - [ ] Versioning - Send bundle version as a start
-- [ ] Signed Commits only
+- [ ] Signed Commits only with GitHub Action
 - [ ] Service Tests
+- [ ] Self-hosted runner
