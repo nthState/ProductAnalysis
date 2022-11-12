@@ -24,6 +24,6 @@ jobs:
         with:
           include_paths: './'
           exclude_words: 'simply, simple, easily, obviously, obvious, he, she, just, blacklist, whitelist, master, slave'
-          fileTypeFilter: '.md'
+          file_types: '.md'
             
       
