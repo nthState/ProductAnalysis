@@ -11,7 +11,7 @@ concurrency:
 jobs:
   check:
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 1
     steps:
       - name: Check Pull Request Title
         uses: naveenk1223/action-pr-title@master
