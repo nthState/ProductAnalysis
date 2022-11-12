@@ -8,13 +8,9 @@
 
 ![Introduction](assets/Intro.svg)
 
----
-
 ## Introduction
 
 A compile-time check to see if you've implemented everything required by the product team.
-
----
 
 ## Integrating into your Project
 
@@ -68,11 +64,7 @@ If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments t
 #${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --enable-generate-source-code
 ```
 
----
-
 ## Development
-
----
 
 ### Getting Started with Development
 
@@ -100,8 +92,6 @@ ARCH=$(uname -m)
   -use-color
 ```
 
----
-
 ## Logging
 
 To view log events, open a new `Terminal` window and run:
@@ -109,8 +99,6 @@ To view log events, open a new `Terminal` window and run:
 ```
 log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
-
----
 
 ## Deployment
 
@@ -131,15 +119,12 @@ git push origin vx.x.x
 ```
 
 
----
-
 ## Appendix
 
 Useful/Interesting links
 
 - [ ] https://swiftrocks.com/code-generation-with-sourcekit
 - [ ] https://nshipster.com/swift-gyb/
-
 
 ## Todo
 
