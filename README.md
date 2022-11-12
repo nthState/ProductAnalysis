@@ -155,5 +155,3 @@ Useful/Interesting links
 - [ ] Check for bad words
 - [ ] Check PR Titles
 - [ ] Clean up workflows
-
-simply a test
