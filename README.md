@@ -4,8 +4,6 @@
 [![Unit Tests](https://github.com/nthState/ProductAnalysis/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/nthState/ProductAnalysis/actions/workflows/unit_tests.yml)
 [![Update Changelog, Create Release](https://github.com/nthState/ProductAnalysis/actions/workflows/update_changelog_create_release.yml/badge.svg)](https://github.com/nthState/ProductAnalysis/actions/workflows/update_changelog_create_release.yml)
 
----
-
 ![Introduction](assets/Intro.svg)
 
 ## Introduction
@@ -32,7 +30,7 @@ ${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run
 
 Add a `ProductAnalysis.plist` to the root of your project
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -60,7 +58,7 @@ Add a `ProductAnalysis.plist` to the root of your project
 
 If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments to `run` like so:
 
-```
+```bash
 #${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --enable-generate-source-code
 ```
 
@@ -70,7 +68,7 @@ If you don't want to use a `ProductAnalsis.plist` file, you can pass arguments t
 
 To install dependencies run:
 
-```
+```bash
 ./scripts/new_developer.sh
 ```
 
@@ -78,13 +76,13 @@ To install dependencies run:
 
 If you want to run unit tests, use the following script, this is also ran as a GitHub Action
 
-```
+```bash
 swift test --enable-code-coverage
 ```
 
 Then to get a code-coverage report (GitHub Action reports this too)
 
-```
+```bash
 ARCH=$(uname -m)
 /Library/Developer/CommandLineTools/usr/bin/llvm-cov \
   report ".build/${ARCH}-apple-macosx/debug/ProductAnalysisPackageTests.xctest/Contents/MacOS/ProductAnalysisPackageTests" \
@@ -96,7 +94,7 @@ ARCH=$(uname -m)
 
 To view log events, open a new `Terminal` window and run:
 
-```
+```bash
 log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
 
@@ -108,13 +106,13 @@ To create a release, you need to add a tag, and push it.
 GitHub Actions handle the rest.
 
 
-```
+```bash
 git tag vx.x.x
 ```
 
 Then push
 
-```
+```bash
 git push origin vx.x.x   
 ```
 
