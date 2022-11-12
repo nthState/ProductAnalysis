@@ -154,5 +154,6 @@ Useful/Interesting links
 - [ ] Service Tests
 - [ ] Check for bad words
 - [ ] Check PR Titles
+- [ ] Clean up workflows
 
 simply a test

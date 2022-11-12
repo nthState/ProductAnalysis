@@ -38,6 +38,9 @@ extension Call: Hashable {
   }
 }
 
+/**
+ Analyses the source code
+ */
 class Analysis {
 
   typealias BuildMessage = String
