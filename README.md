@@ -16,9 +16,18 @@ The following JSON is converted into swift sourcecode, which is then compile tim
 it's implemented in your code
 
 
-| JSON | Swift | Code |
-|------|-------|------|
-|  |  |
+<table>
+    <tr>
+        <th>JSON</th>
+        <th>Swift</th>
+        <th>Code</th>
+    </tr>
+    <tr>
+        <td>Example JSON</td>
+        <td>Example Generated Swift</td>
+        <td>Example Compiler Response</td>
+    </tr>
+</table?
 
 ## Integrating into your Project
 
