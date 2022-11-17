@@ -16,7 +16,7 @@ The following JSON is converted into swift sourcecode, which is then compile tim
 it's implemented in your code
 
 
-<table>
+<table border="1">
     <tr>
         <th>JSON</th>
         <th>Swift</th>
@@ -27,7 +27,7 @@ it's implemented in your code
         <td>Example Generated Swift</td>
         <td>Example Compiler Response</td>
     </tr>
-</table?
+</table>
 
 ## Integrating into your Project
 
