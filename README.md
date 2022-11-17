@@ -15,9 +15,10 @@ A compile-time check to see if you've implemented everything required by the pro
 The following JSON is converted into swift sourcecode, which is then compile time checked to see if
 it's implemented in your code
 
-|---|---|---|
+
 | JSON | Swift | Code |
-|
+|------|-------|------|
+|  |  |
 
 ## Integrating into your Project
 
