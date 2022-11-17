@@ -15,11 +15,12 @@ jobs:
 
       - name: Update CHANGELOG
         id: changelog
-        uses: Requarks/changelog-action@v1
+        uses: Requarks/changelog-action@v1.5
         with:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
           excludeTypes: ""
+          includeInvalidCommits: true
 
       - name: Create Release
         uses: ncipollo/release-action@v1
