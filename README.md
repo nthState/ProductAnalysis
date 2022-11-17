@@ -10,6 +10,15 @@
 
 A compile-time check to see if you've implemented everything required by the product team.
 
+### Example
+
+The following JSON is converted into swift sourcecode, which is then compile time checked to see if
+it's implemented in your code
+
+|---|---|---|
+| JSON | Swift | Code |
+|
+
 ## Integrating into your Project
 
 Add this Swift Package to your App:
@@ -98,23 +107,11 @@ To view log events, open a new `Terminal` window and run:
 log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 ```
 
-## Deployment
+## Other links
 
-### Creating a Release
-
-To create a release, you need to add a tag, and push it.
-GitHub Actions handle the rest.
-
-
-```bash
-git tag vx.x.x
-```
-
-Then push
-
-```bash
-git push origin vx.x.x   
-```
+- [Contribution guidelines for this project](CONTRIBUTING.md)
+- [Funding this project](FUNDING.yml)
+- [Creating Releases](RELEASE.md)
 
 
 ## Appendix
@@ -131,3 +128,4 @@ Useful/Interesting links
 - [ ] Signed Commits only with GitHub Action
 - [ ] Service Tests
 - [ ] Self-hosted runner
+- [ ] Add BDD Feature files
