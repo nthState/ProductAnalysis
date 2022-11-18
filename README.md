@@ -161,7 +161,7 @@ log stream --level debug --predicate 'subsystem == "com.productAnalysis"'
 
 - [Contribution guidelines for this project](CONTRIBUTING.md)
 - [Funding this project](FUNDING.yml)
-- [Creating Releases](RELEASE.md)
+- [Creating Releases](docs/RELEASE.md)
 
 
 ## Appendix
