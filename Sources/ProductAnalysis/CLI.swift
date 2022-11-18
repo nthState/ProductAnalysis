@@ -111,7 +111,7 @@ public struct CLI: AsyncParsableCommand {
   }
 
   internal func urlToProjectDir() -> URL? {
-    URL(string: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
+    URL(fileURLWithPath: ProcessInfo.processInfo.environment["PROJECT_DIR"] ?? "")
   }
 
 }
