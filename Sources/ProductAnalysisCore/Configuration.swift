@@ -61,7 +61,10 @@ public struct Configuration: Decodable {
 
     let configurationURL: URL
     if !projectDir.isFileURL {
-      guard let configURL = Configuration.findFile(named: "ProductAnalysis.plist", at: projectDir) else {
+      
+      let filePathProjectDir = URL(fileURLWithPath: projectDir.path)
+      
+      guard let configURL = Configuration.findFile(named: "ProductAnalysis.plist", at: filePathProjectDir) else {
         Configuration.logger.log("Can't find ProductAnalysis.plist")
         return nil
       }
@@ -133,6 +136,11 @@ extension Configuration: CustomStringConvertible {
 
 extension Configuration {
   internal static func findFile(named: String, at url: URL) -> URL? {
+    
+    if FileManager.default.fileExists(atPath: url.path) {
+      return url
+    }
+    
     if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
       for case let fileURL as URL in enumerator {
         do {
