@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.11] - 2022-11-18
+### :bug: Bug Fixes
+- [`5704fcc`](https://github.com/nthState/ProductAnalysis/commit/5704fcc0f515e6e70aa90342baf364f6dfc5430e) - Adding debug logs *(commit by [@nthState](https://github.com/nthState))*
+- [`8e89a96`](https://github.com/nthState/ProductAnalysis/commit/8e89a965b6d19ea23f5c9c1717808b66734a66e7) - return file urls *(commit by [@nthState](https://github.com/nthState))*
+- [`8a9d42c`](https://github.com/nthState/ProductAnalysis/commit/8a9d42cade9ac96e6f0ab537d46d0d6a0ae7b57e) - Change prodject_dir to file url *(commit by [@nthState](https://github.com/nthState))*
+
+### :white_check_mark: Tests
+- [`eb40e23`](https://github.com/nthState/ProductAnalysis/commit/eb40e235ccbc51d0237d11654a4645562f237dc0) - Trying to fix path reading *(commit by [@nthState](https://github.com/nthState))*
+
+### :construction_worker: Build System
+- [`520cdcb`](https://github.com/nthState/ProductAnalysis/commit/520cdcb7ad8bb670a5e2bb58990ed1a31dc5a65e) - Include non-conventional commits in CHANGELOG *(commit by [@nthState](https://github.com/nthState))*
+- [`f0e949f`](https://github.com/nthState/ProductAnalysis/commit/f0e949fde581f4b59b0ae638e7840aa161953650) - use version 1.5.0 of changelog generator *(commit by [@nthState](https://github.com/nthState))*
+
+### :memo: Documentation Changes
+- [`b0b9c85`](https://github.com/nthState/ProductAnalysis/commit/b0b9c854ae4c3fe1d7bd180ac34f80c33dfb0638) - update CHANGELOG.md for v0.0.10 [skip ci] *(commit by [@nthState](https://github.com/nthState))*
+- [`a810d66`](https://github.com/nthState/ProductAnalysis/commit/a810d669dcd2cb3a291ddbcb9f4a81de94ed3d57) - Update README *(commit by [@nthState](https://github.com/nthState))*
+- [`a19aa01`](https://github.com/nthState/ProductAnalysis/commit/a19aa01fec64da6c78fd794b8b0c0db7844b402e) - Remove horizontal rules from README *(commit by [@nthState](https://github.com/nthState))*
+- [`ec26729`](https://github.com/nthState/ProductAnalysis/commit/ec26729d0101efecd93b354236755918b4e2a8e0) - Set code snippet language *(commit by [@nthState](https://github.com/nthState))*
+- [`7dbeb48`](https://github.com/nthState/ProductAnalysis/commit/7dbeb48a0ac83b051ffaf99bfb1e0c6c6df8071c) - Expand development section *(commit by [@nthState](https://github.com/nthState))*
+- [`b2b52e9`](https://github.com/nthState/ProductAnalysis/commit/b2b52e921ebfd29593cc820be881fdb7296112a2) - Update README with other links *(commit by [@nthState](https://github.com/nthState))*
+- [`e757801`](https://github.com/nthState/ProductAnalysis/commit/e757801a0b30840438a378093568502480bab4fa) - fix example table in README *(commit by [@nthState](https://github.com/nthState))*
+- [`a18446d`](https://github.com/nthState/ProductAnalysis/commit/a18446d83a546ea07bf6d4cb28902ce5a77d0e13) - Move README example to be a table *(commit by [@nthState](https://github.com/nthState))*
+- [`5df2927`](https://github.com/nthState/ProductAnalysis/commit/5df292769eac163cc6ee198d406403dfe672a266) - README table correctly terminated *(commit by [@nthState](https://github.com/nthState))*
+- [`1faeff5`](https://github.com/nthState/ProductAnalysis/commit/1faeff5a720e150908421195d77c6898ce808530) - New layout for JSON/Swift/Compiler example *(commit by [@nthState](https://github.com/nthState))*
+- [`40e6a0d`](https://github.com/nthState/ProductAnalysis/commit/40e6a0d56657e60951d5604ddb41f088509a0fed) - Fixed tripple quote *(commit by [@nthState](https://github.com/nthState))*
+
+
 ## [v0.0.10] - 2022-11-12
 ### :construction_worker: Build System
 - [`c23a76e`](https://github.com/nthState/ProductAnalysis/commit/c23a76edbf321ad1bc18be0a0f67ce6ecae3a696) - Workflow Cleanup Test PR with bad name *(PR [#8](https://github.com/nthState/ProductAnalysis/pull/8) by [@nthState](https://github.com/nthState))*
@@ -104,3 +131,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.8]: https://github.com/nthState/ProductAnalysis/compare/v0.0.7...v0.0.8
 [v0.0.9]: https://github.com/nthState/ProductAnalysis/compare/v0.0.8...v0.0.9
 [v0.0.10]: https://github.com/nthState/ProductAnalysis/compare/v0.0.9...v0.0.10
+[v0.0.11]: https://github.com/nthState/ProductAnalysis/compare/v0.0.10...v0.0.11
