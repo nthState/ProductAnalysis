@@ -15,18 +15,9 @@ A compile-time check to see if you've implemented everything required by the pro
 The following JSON is converted into swift sourcecode, which is then compile time checked to see if
 it's implemented in your code
 
-
-<table border="1">
-    <tr>
-        <th>JSON</th>
-        <th>Swift</th>
-        <th>Code</th>
-    </tr>
-    <tr>
-        <td>
         
-        ```json
-        {
+```json
+{
   "productAnalysis": {
     "General": {
       "Launch": {
@@ -43,15 +34,12 @@ it's implemented in your code
       }
     }
   }
-}
+}```
 
-        ```
-        
-        </td>
-        <td>
-        
-        ```swift
-        protocol Analyzable {
+Generated Swift Code
+
+```swift
+protocol Analyzable {
   var analysisKey: String { get }
 }
 
@@ -68,14 +56,14 @@ enum AnalysisKeys {
       }
     }
   }
-}
+}```
 
-        ```
+Compiler Results
         
-        </td>
-        <td>Example Compiler Response</td>
-    </tr>
-</table>
+
+![Compiler Results](assets/compilerResults_001.png)
+        
+
 
 ## Integrating into your Project
 
@@ -185,5 +173,6 @@ Useful/Interesting links
 - [ ] Versioning - Send bundle version as a start
 - [ ] Signed Commits only with GitHub Action
 - [ ] Service Tests
+- [ ] CLI Tests
 - [ ] Self-hosted runner
 - [ ] Add BDD Feature files
