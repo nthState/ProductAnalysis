@@ -40,13 +40,20 @@ final class ConfigurationTests: XCTestCase {
     
     let bundle = Bundle.module
     let configurationURL = bundle.url(forResource: "Resources/EmptyConfiguration", withExtension: "plist")!
-    
-    let plainURL = URL(string: configurationURL.path)
-    
-    let configuration = Configuration(url: plainURL)
+
+    let configuration = Configuration(url: configurationURL)
     
     XCTAssertNotNil(configuration, "Configuration should not be nil")
+  }
+  
+  func testFindPListToDecode() throws {
     
+    let bundle = Bundle.module
+    let configurationURL = bundle.resourceURL
+    
+    let configuration = Configuration(url: configurationURL)
+    
+    XCTAssertNotNil(configuration, "Configuration should not be nil")
   }
 
 }

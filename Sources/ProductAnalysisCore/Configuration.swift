@@ -58,13 +58,13 @@ public struct Configuration: Decodable {
       Configuration.logger.log("Xcode environment variable $PROJECT_DIR is nil")
       return nil
     }
-
+    
+    let isDirectory = (try? projectDir.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
+    
     let configurationURL: URL
-    if !projectDir.isFileURL {
-      
-      let filePathProjectDir = URL(fileURLWithPath: projectDir.path)
-      
-      guard let configURL = Configuration.findFile(named: "ProductAnalysis.plist", at: filePathProjectDir) else {
+    if isDirectory {
+
+      guard let configURL = Configuration.findFile(named: "ProductAnalysis.plist", at: projectDir) else {
         Configuration.logger.log("Can't find ProductAnalysis.plist")
         return nil
       }
@@ -135,11 +135,8 @@ extension Configuration: CustomStringConvertible {
 }
 
 extension Configuration {
+  
   internal static func findFile(named: String, at url: URL) -> URL? {
-    
-    if FileManager.default.fileExists(atPath: url.path) {
-      return url
-    }
     
     if let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
       for case let fileURL as URL in enumerator {
@@ -150,7 +147,7 @@ extension Configuration {
               continue
             }
             if url.lastPathComponent == named {
-              return url
+              return URL(fileURLWithPath: url.path)
             }
           }
         } catch {
@@ -160,4 +157,5 @@ extension Configuration {
     }
     return nil
   }
+  
 }
