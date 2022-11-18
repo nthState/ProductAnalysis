@@ -34,7 +34,8 @@ it's implemented in your code
       }
     }
   }
-}```
+}
+```
 
 Generated Swift Code
 
@@ -56,7 +57,8 @@ enum AnalysisKeys {
       }
     }
   }
-}```
+}
+```
 
 Compiler Results
         
