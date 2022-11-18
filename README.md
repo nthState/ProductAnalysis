@@ -63,8 +63,10 @@ enum AnalysisKeys {
 Compiler Results
         
 
-![Compiler Results](assets/compilerResults_001.png)
-        
+```
+⚠️ AnalysisKeys.General.Launch.launchName not implemented
+⚠️ AnalysisKeys.General.Quit.terminateName not implemented
+```
 
 
 ## Integrating into your Project
