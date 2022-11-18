@@ -23,8 +23,56 @@ it's implemented in your code
         <th>Code</th>
     </tr>
     <tr>
-        <td>Example JSON</td>
-        <td>Example Generated Swift</td>
+        <td>
+        
+        ```json
+        {
+  "productAnalysis": {
+    "General": {
+      "Launch": {
+        "children": [{
+          "name": "launchName",
+          "value": "on_launch"
+        }]
+      },
+      "Quit": {
+        "children": [{
+          "name": "terminateName",
+          "value": "on_terminate"
+        }]
+      }
+    }
+  }
+}
+
+        ```
+        
+        </td>
+        <td>
+        
+        ```swift
+        protocol Analyzable {
+  var analysisKey: String { get }
+}
+
+enum AnalysisKeys {
+  enum General {
+    enum Quit {
+      public struct terminateName: Analyzable {
+        let analysisKey: String = "on_terminate"
+      }
+    }
+    enum Launch {
+      public struct launchName: Analyzable {
+        let analysisKey: String = "on_launch"
+      }
+    }
+  }
+}
+
+        ```
+        
+        </td>
         <td>Example Compiler Response</td>
     </tr>
 </table>

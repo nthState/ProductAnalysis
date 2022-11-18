@@ -36,6 +36,8 @@ public class Service {
     if configuration.enableGenerateSourceCode {
       let generate = SourceGenerator()
       try await generate.write(analytics: analytics, with: configuration)
+    } else {
+      logger.log("Skipping Generate SourceCode")
     }
 
     if configuration.enableAnalysis {
@@ -53,7 +55,12 @@ public class Service {
         let analysisReporter = AnalysisReporter()
 
         try await analysisReporter.report(results: analysisResults, with: configuration)
+      } else {
+        logger.log("Skipping Report Analysis")
       }
+      
+    } else {
+      logger.log("Skipping Enable Analysis")
     }
 
     return 0
