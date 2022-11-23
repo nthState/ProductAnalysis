@@ -60,7 +60,20 @@ enum AnalysisKeys {
 }
 ```
 
-Compiler Results
+Your Code
+
+```swift
+@main
+struct MyApp {
+
+  func main() {
+    // Nothing Implemented
+  }
+
+}
+```
+
+When you compile, you get the following results:
         
 
 ```
@@ -69,7 +82,7 @@ Compiler Results
 ```
 
 
-## ➡️ Integrating into your Project
+## 🔀 Integrating into your Project
 
 Add this Swift Package to your App:
 
