@@ -10,7 +10,7 @@
 
 A compile-time check to see if you've implemented everything required by the product team.
 
-### Example
+### ✨ Example
 
 The following JSON is converted into swift sourcecode, which is then compile time checked to see if
 it's implemented in your code
@@ -69,7 +69,7 @@ Compiler Results
 ```
 
 
-## Integrating into your Project
+## ➡️ Integrating into your Project
 
 Add this Swift Package to your App:
 
@@ -77,7 +77,7 @@ Add this Swift Package to your App:
 .package(url: "https://github.com/nthState/ProductAnalysis", branch: "main")
 ```
 
-### Add Build Phase
+### 🛠️ Add Build Phase
 
 Add the following line to a `Build Phase Script`:
 
@@ -121,7 +121,7 @@ If you don't want to use a `ProductAnalysis.plist` file, you can pass arguments 
 #${BUILD_DIR%Build/*}SourcePackages/checkouts/ProductAnalysis/run --folder-name "MyAnalysis" --enable-analysis --enable-generate-source-code
 ```
 
-## Development
+## 🧑‍💻 Development
 
 ### Getting Started with Development
 
@@ -131,7 +131,7 @@ To install dependencies run the following script, it installs Xcode Command line
 ./scripts/new_developer.sh
 ```
 
-### Running Tests
+### 📋 Running Tests
 
 If you want to run unit tests, use the following script, this is also ran as a GitHub Action
 
@@ -149,7 +149,7 @@ ARCH=$(uname -m)
   -use-color
 ```
 
-## Logging
+## 📝 Logging
 
 To view log events, open a new `Terminal` window and run:
 
@@ -180,3 +180,4 @@ Useful/Interesting links
 - [ ] CLI Tests
 - [ ] Self-hosted runner
 - [ ] Add BDD Feature files
+- [ ] `print("ProductAnalysis Finished")` fires before all results returned
